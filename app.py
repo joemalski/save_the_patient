@@ -12,6 +12,9 @@ pygame.display.set_caption('Save the Patient!')
 icon = pygame.image.load('assets/images/sprites/coronavirus_32.png')
 pygame.display.set_icon(icon)
 
+# background
+background = pygame.image.load('assets/images/background/play.jpg')
+
 # create the screen
 screen = pygame.display.set_mode((800, 600))
 
@@ -19,9 +22,13 @@ screen = pygame.display.set_mode((800, 600))
 game_loop_flag = True
 
 while game_loop_flag:
+    # background image
+    screen.blit(background, (0, 0))
+
+    # check events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             game_loop_flag = False
 
-    screen.fill((0, 0, 0))
+    # updates the screen on every iteration of the game loop
     pygame.display.update()
