@@ -1,0 +1,2 @@
+# Requirements for covid-19 "the game"
+pygame==1.9.6
