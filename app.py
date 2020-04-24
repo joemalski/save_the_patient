@@ -22,6 +22,9 @@ screen = pygame.display.set_mode((800, 600))
 game_loop_flag = True
 
 while game_loop_flag:
+    # set screen background color
+    screen.fill((0, 0, 0))
+    
     # background image
     screen.blit(background, (0, 0))
 
