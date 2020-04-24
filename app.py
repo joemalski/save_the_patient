@@ -5,6 +5,7 @@
 import pygame, sys
 
 from core.screen import Screen
+from core.player import Player
 
 # pygame initialization
 pygame.init()
