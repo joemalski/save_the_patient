@@ -1,4 +1,4 @@
-# Filename: Screen.py
+# Filename: screen.py
 # Description: Screen Class
 # Date: April 24, 2020
 

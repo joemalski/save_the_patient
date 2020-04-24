@@ -4,7 +4,7 @@
 
 import pygame, sys
 
-from core.Screen import Screen
+from core.screen import Screen
 
 # pygame initialization
 pygame.init()
