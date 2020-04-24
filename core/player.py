@@ -25,6 +25,7 @@ class Player:
         print('rendered:', self.rendered)
 
     # set x coordinate, where "x" is an int
+    # "x" is the "row"
     def set_x(self, x):
         self.x = x
 
@@ -32,6 +33,7 @@ class Player:
         return self.x
 
     # set y coordinate, where "y" is an int
+    # "y" is the "column"
     def set_y(self, y):
         self.y = y
 
@@ -54,7 +56,7 @@ class Player:
             return False
 
     # draw player image on screen
-    # image, x and y should be initialize first
+    # self.image, self.x and self.y should be set or initialized first
     # it automatically sets the "self.rendered" to true
     def draw(self):
         image = self.pygame.image.load(self.image_path)

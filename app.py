@@ -22,7 +22,7 @@ main_screen.show_details()
 # player screen initialization
 player = Player(pygame, Screen.object)
 player.set_x(100)
-player.set_y(50)
+player.set_y(250)
 player.set_image_path('assets/images/sprites/doctor_64.png')
 player.draw()
 player.show_details()
