@@ -19,6 +19,14 @@ main_screen.set_background_color((192, 192, 192))
 main_screen.set_background_image('assets/images/background/play.jpg', (0, 0))
 main_screen.show_details()
 
+# player screen initialization
+player = Player(pygame, Screen.object)
+player.set_x(100)
+player.set_y(50)
+player.set_image_path('assets/images/sprites/doctor_64.png')
+player.draw()
+player.show_details()
+
 # game loop
 game_loop_flag = True
 
@@ -33,5 +41,5 @@ while game_loop_flag:
 
 # quits pygame
 pygame.quit()
-print('\nThanks for playing...\n')
+print('\nThanks for playing... Stay Home, Stay Safe!\n')
 sys.exit()
