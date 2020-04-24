@@ -1,5 +1,5 @@
 # Filename: Screen.py
-# Description: Game System Class
+# Description: Screen Class
 # Date: April 24, 2020
 
 class Screen:
