@@ -2,32 +2,26 @@
 # Description: main module for the game.
 # Date: April 23, 2020
 
-import pygame
+import pygame, sys
 
-# initialize pygame module
+from Screen import Screen
+
+# pygame initialization
 pygame.init()
 
-# title and icon
-pygame.display.set_caption('Save the Patient!')
-icon = pygame.image.load('assets/images/sprites/coronavirus_32.png')
-pygame.display.set_icon(icon)
-
-# background
-background = pygame.image.load('assets/images/background/play.jpg')
-
-# create the screen
-screen = pygame.display.set_mode((800, 600))
+# main screen initialization
+main_screen = Screen(pygame)
+main_screen.set_size((800, 600))
+main_screen.set_icon_path('assets/images/sprites/coronavirus_32.png')
+main_screen.set_caption('Save the Patient! A Covid-19 Game...')
+main_screen.set_background_color((192, 192, 192))
+main_screen.set_background_image('assets/images/background/play.jpg', (0, 0))
+main_screen.show_details()
 
 # game loop
 game_loop_flag = True
 
 while game_loop_flag:
-    # set screen background color
-    screen.fill((0, 0, 0))
-    
-    # background image
-    screen.blit(background, (0, 0))
-
     # check events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -35,3 +29,8 @@ while game_loop_flag:
 
     # updates the screen on every iteration of the game loop
     pygame.display.update()
+
+# quits pygame
+pygame.quit()
+print('\nThanks for playing...\n')
+sys.exit()
