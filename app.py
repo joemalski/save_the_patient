@@ -26,6 +26,7 @@ player.set_image_path('assets/images/sprites/doctor_128.png')
 
 # game loop
 game_loop_flag = True
+player_x_change = 0
 
 while game_loop_flag:
     # set screen background
@@ -40,6 +41,20 @@ while game_loop_flag:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             game_loop_flag = False  
+
+        # check keystrokes
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                player_x_change = -10
+            if event.key == pygame.K_RIGHT:
+                player_x_change = 10
+
+        if event.type == pygame.KEYUP:
+            if (event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT):
+                player_x_change = 0
+
+    player.set_x(player.get_x() + player_x_change)
+    player.draw()
 
     # updates the screen on every iteration of the game loop
     pygame.display.update()
