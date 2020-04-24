@@ -16,6 +16,7 @@ class Screen:
         self.background_image_path = None
         self.background_point = None
 
+    # show screen's object values
     def show_details(self):
         print('\nScreen Details')
         print('--------------')
@@ -26,6 +27,7 @@ class Screen:
         print('background image path:', self.background_image_path)
         print('background image point(x,y):', self.background_point)
 
+    # sets screen size where "size" is a tuple
     def set_size(self, size):
         self.size = size
         Screen.object = self.pygame.display.set_mode(self.size)
@@ -33,6 +35,7 @@ class Screen:
     def get_size(self):
         return self.size
 
+    # sets screen caption where "caption" is a str
     def set_caption(self, caption):
         self.caption = caption
         self.pygame.display.set_caption(self.caption)
@@ -40,6 +43,7 @@ class Screen:
     def get_caption(self):
         return self.caption
 
+    # sets screen icon, where "icon_path" is a str
     def set_icon_path(self, icon_path):
         self.icon_path = icon_path
         icon = self.pygame.image.load(self.icon_path)
@@ -48,6 +52,7 @@ class Screen:
     def get_icon_path(self):
         return self.icon_path
 
+    # sets screen background color, where "background_color" is a tuple
     def set_background_color(self, background_color):
         self.background_color = background_color
         Screen.object.fill(self.background_color)
@@ -55,6 +60,8 @@ class Screen:
     def get_background_color(self):
         return self.background_color
 
+    # sets screen images, where "background_path" is a str
+    # and "background_point" is a tuple
     def set_background_image(self, background_path, background_point):
         self.background_image_path = background_path
         self.background_point = background_point
