@@ -15,26 +15,31 @@ main_screen = Screen(pygame)
 main_screen.set_size((800, 600))
 main_screen.set_icon_path('assets/images/sprites/coronavirus_32.png')
 main_screen.set_caption('Save the Patient! A Covid-19 Game...')
-main_screen.set_background_color((192, 192, 192))
-main_screen.set_background_image('assets/images/background/play.jpg', (0, 0))
-main_screen.show_details()
+
 
 # player screen initialization
+# initial position of player, bottom center
 player = Player(pygame, Screen.object)
-player.set_x(100)
-player.set_y(250)
-player.set_image_path('assets/images/sprites/doctor_64.png')
-player.draw()
-player.show_details()
+player.set_x(336)
+player.set_y(472)
+player.set_image_path('assets/images/sprites/doctor_128.png')
 
 # game loop
 game_loop_flag = True
 
 while game_loop_flag:
+    # set screen background
+    main_screen.set_background_color((192, 192, 192))
+    main_screen.set_background_image('assets/images/background/play.jpg',
+        (0, 0))
+
+    # draw player
+    player.draw()
+
     # check events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            game_loop_flag = False
+            game_loop_flag = False  
 
     # updates the screen on every iteration of the game loop
     pygame.display.update()
