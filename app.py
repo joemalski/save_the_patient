@@ -24,7 +24,35 @@ player.set_x(336)
 player.set_y(472)
 player.set_image_path('assets/images/sprites/doctor_128.png')
 
+# wave counter
 wave = 1
+
+def set_menu_header(ammo_value, virus_killed):
+    # ammo image
+    ammo_image = Sprite(pygame, Screen.object)
+    ammo_image.set_x(5)
+    ammo_image.set_y(5)
+    ammo_image.set_image_path('assets/images/sprites/vaccine_16.png')
+    ammo_image.draw()
+
+    # ammo value
+    font = pygame.font.Font('freesansbold.ttf', 16)
+    ammo_text = font.render('(left) x ' + str(ammo_value),
+        True, (0, 255, 0))
+    Screen.object.blit(ammo_text, (25, 5))
+
+    # virus image
+    virus_image = Sprite(pygame, Screen.object)
+    virus_image.set_x(5)
+    virus_image.set_y(30)
+    virus_image.set_image_path('assets/images/sprites/virus_16.png')
+    virus_image.draw()
+
+    # virus killed
+    font = pygame.font.Font('freesansbold.ttf', 16)
+    virus_text = font.render('(killed) x ' + str(virus_killed),
+        True, (0, 255, 0))
+    Screen.object.blit(virus_text, (25, 30))
 
 # quit the game
 def game_quit():
@@ -33,8 +61,8 @@ def game_quit():
     print('\nThanks for playing... Stay Home, Stay Safe!\n')
     sys.exit()
 
-def show_wave():
-
+# show's the wave page screen
+def show_wave_page_screen():
     flag = True
     font = pygame.font.Font('freesansbold.ttf', 32)
     wave_text = font.render('Wave ' + str(wave), True, (255, 0, 0))
@@ -56,17 +84,21 @@ def show_wave():
 
 # game loop
 def game_loop():
+    # set_repeat(), for smoother keypress responses
+    pygame.key.set_repeat(10,10)
 
     game_loop_flag = True
     player_x_change = 0
 
     while game_loop_flag:
-
         # set screen background
         main_screen.set_background_color((192, 192, 192))
         main_screen.set_background_image(
             'assets/images/background/background_2.jpg',
             (0, 0))
+
+        # set header
+        set_menu_header(10, 0)
 
         # draw player
         player.draw()
@@ -107,7 +139,7 @@ def game_loop():
 
 
 # show wave text
-show_wave()
+show_wave_page_screen()
 
 # run game loop
 game_loop()
