@@ -24,53 +24,93 @@ player.set_x(336)
 player.set_y(472)
 player.set_image_path('assets/images/sprites/doctor_128.png')
 
-# game loop
-game_loop_flag = True
-current_player_x = 0
-player_x_change = 0
+wave = 1
 
-while game_loop_flag:
-    # set screen background
-    main_screen.set_background_color((192, 192, 192))
-    main_screen.set_background_image('assets/images/background/play.jpg',
-        (0, 0))
+# quit the game
+def game_quit():
+    # quits pygame
+    pygame.quit()
+    print('\nThanks for playing... Stay Home, Stay Safe!\n')
+    sys.exit()
 
-    # draw player
-    player.draw()
+def show_wave():
 
-    # check events
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            game_loop_flag = False  
-
-        # check keystrokes
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT:
-                player_x_change = -15
-            if event.key == pygame.K_RIGHT:
-                player_x_change = 15
-
-        if event.type == pygame.KEYUP:
-            if (event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT):
-                player_x_change = 0
-
-    player.set_x(player.get_x() + player_x_change)
-
-    # check player left and right boundaries
-    # x: 800, sprite: 128x128
-    # left boundary: 0
-    # right boundary: 672 (800-128)
-    if player.get_x() <= 0:
-        player.set_x(0)
-    elif player.get_x() >= 672:
-        player.set_x(672)
-
-    player.draw()
+    flag = True
+    font = pygame.font.Font('freesansbold.ttf', 32)
+    wave_text = font.render('Wave ' + str(wave), True, (255, 0, 0))
+    Screen.object.blit(wave_text, (350, 250))
 
     # updates the screen on every iteration of the game loop
     pygame.display.update()
 
-# quits pygame
-pygame.quit()
-print('\nThanks for playing... Stay Home, Stay Safe!\n')
-sys.exit()
+    while flag:
+        # check events
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                flag = False
+                game_quit()
+
+            # check keystrokes
+            if event.type == pygame.KEYDOWN:
+                flag = False
+
+# game loop
+def game_loop():
+
+    game_loop_flag = True
+    player_x_change = 0
+
+    while game_loop_flag:
+
+        # set screen background
+        main_screen.set_background_color((192, 192, 192))
+        main_screen.set_background_image(
+            'assets/images/background/background_2.jpg',
+            (0, 0))
+
+        # draw player
+        player.draw()
+
+        # check events
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                game_loop_flag = False  
+
+            # check keystrokes
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    player_x_change = -15
+                if event.key == pygame.K_RIGHT:
+                    player_x_change = 15
+
+            if event.type == pygame.KEYUP:
+                if (event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT):
+                    player_x_change = 0
+
+        player.set_x(player.get_x() + player_x_change)
+
+        # check player left and right boundaries
+        # x: 800, sprite: 128x128
+        # left boundary: 0
+        # right boundary: 672 (800-128)
+        if player.get_x() <= 0:
+            player.set_x(0)
+        elif player.get_x() >= 672:
+            player.set_x(672)
+
+        player.draw()
+
+        # updates the screen on every iteration of the game loop
+        pygame.display.update()
+
+    game_quit()
+
+
+# show wave text
+show_wave()
+
+# run game loop
+game_loop()
+
+
+
