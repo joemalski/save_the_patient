@@ -63,7 +63,7 @@ def game_quit():
 
 # show's the wave page screen
 def show_wave_page_screen():
-    flag = True
+    wave_page_flag = True
     font = pygame.font.Font('freesansbold.ttf', 32)
     wave_text = font.render('Wave ' + str(wave), True, (255, 0, 0))
     Screen.object.blit(wave_text, (350, 250))
@@ -71,16 +71,16 @@ def show_wave_page_screen():
     # updates the screen on every iteration of the game loop
     pygame.display.update()
 
-    while flag:
+    while wave_page_flag:
         # check events
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                flag = False
+                wave_page_flag = False
                 game_quit()
 
             # check keystrokes
             if event.type == pygame.KEYDOWN:
-                flag = False
+                wave_page_flag = False
 
 # game loop
 def game_loop():
