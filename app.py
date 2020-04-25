@@ -2,7 +2,7 @@
 # Description: main module for the game.
 # Date: April 23, 2020
 
-import pygame, sys
+import pygame, sys, math
 
 from core.screen import Screen
 from core.sprite import Sprite
@@ -26,6 +26,13 @@ player.set_image_path('assets/images/sprites/doctor_128.png')
 
 # wave counter
 wave = 1
+
+def is_collision(enemy_x, enemy_y, bullet_x, bullet_y):
+    distance = math.sqrt(math.pow(enemy_x-bullet_x, 2) + math.pow(enemy_y-bullet_y, 2))
+    if distance < 27:
+        return True
+    else:
+        return False
 
 def set_menu_header(ammo_value, virus_killed):
     # ammo image
