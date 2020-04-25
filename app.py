@@ -5,7 +5,7 @@
 import pygame, sys
 
 from core.screen import Screen
-from core.player import Player
+from core.sprite import Sprite
 
 # pygame initialization
 pygame.init()
@@ -19,7 +19,7 @@ main_screen.set_caption('Save the Patient! A Covid-19 Game...')
 
 # player screen initialization
 # initial position of player, bottom center
-player = Player(pygame, Screen.object)
+player = Sprite(pygame, Screen.object)
 player.set_x(336)
 player.set_y(472)
 player.set_image_path('assets/images/sprites/doctor_128.png')
@@ -46,9 +46,9 @@ while game_loop_flag:
         # check keystrokes
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                player_x_change = -10
+                player_x_change = -15
             if event.key == pygame.K_RIGHT:
-                player_x_change = 10
+                player_x_change = 15
 
         if event.type == pygame.KEYUP:
             if (event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT):
