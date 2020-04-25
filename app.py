@@ -26,6 +26,7 @@ player.set_image_path('assets/images/sprites/doctor_128.png')
 
 # game loop
 game_loop_flag = True
+current_player_x = 0
 player_x_change = 0
 
 while game_loop_flag:
@@ -54,6 +55,16 @@ while game_loop_flag:
                 player_x_change = 0
 
     player.set_x(player.get_x() + player_x_change)
+
+    # check player left and right boundaries
+    # x: 800, sprite: 128x128
+    # left boundary: 0
+    # right boundary: 672 (800-128)
+    if player.get_x() <= 0:
+        player.set_x(0)
+    elif player.get_x() >= 672:
+        player.set_x(672)
+
     player.draw()
 
     # updates the screen on every iteration of the game loop
