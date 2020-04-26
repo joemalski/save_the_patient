@@ -107,9 +107,6 @@ def game_loop():
         # set header
         set_menu_header(10, 0)
 
-        # draw player
-        player.draw()
-
         # check events
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -132,12 +129,28 @@ def game_loop():
         # x: 800, sprite: 128x128
         # left boundary: 0
         # right boundary: 672 (800-128)
-        if player.get_x() <= 0:
-            player.set_x(0)
-        elif player.get_x() >= 672:
-            player.set_x(672)
+        if player.get_x() <= -20:
+            player.set_x(-20)
+        elif player.get_x() >= 692:
+            player.set_x(692)
 
         player.draw()
+
+        # --- temp code begin
+        # To show virus positions
+        x = 12
+        y = 46
+        for a in range(0, 6):
+            for b in range(0, 12):                
+                virus = Sprite(pygame, Screen.object)
+                virus.set_x(x)
+                virus.set_y(y)
+                virus.set_image_path('assets/images/sprites/virus_64.png')
+                virus.draw()
+                x += 64
+            x = 12
+            y += 64
+        # ---temp code end
 
         # updates the screen on every iteration of the game loop
         pygame.display.update()
