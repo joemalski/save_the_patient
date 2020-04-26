@@ -34,7 +34,13 @@ def is_collision(enemy_x, enemy_y, bullet_x, bullet_y):
     else:
         return False
 
-def set_menu_header(ammo_value, virus_killed):
+def set_menu_header(ammo_value, virus_killed, wave):
+    # add
+    font = pygame.font.Font('freesansbold.ttf', 16)
+    wave_text = font.render('Wave ' + str(wave),
+        True, (0, 255, 0))
+    Screen.object.blit(wave_text, (380, 5))
+
     # ammo image
     ammo_image = Sprite(pygame, Screen.object)
     ammo_image.set_x(5)
@@ -42,8 +48,7 @@ def set_menu_header(ammo_value, virus_killed):
     ammo_image.set_image_path('assets/images/sprites/vaccine_16.png')
     ammo_image.draw()
 
-    # ammo value
-    font = pygame.font.Font('freesansbold.ttf', 16)
+    # ammo value    
     ammo_text = font.render('(left) x ' + str(ammo_value),
         True, (0, 255, 0))
     Screen.object.blit(ammo_text, (25, 5))
@@ -56,7 +61,6 @@ def set_menu_header(ammo_value, virus_killed):
     virus_image.draw()
 
     # virus killed
-    font = pygame.font.Font('freesansbold.ttf', 16)
     virus_text = font.render('(killed) x ' + str(virus_killed),
         True, (0, 255, 0))
     Screen.object.blit(virus_text, (25, 30))
@@ -105,7 +109,7 @@ def game_loop():
             (0, 0))
 
         # set header
-        set_menu_header(10, 0)
+        set_menu_header(10, 0, 1)
 
         # check events
         for event in pygame.event.get():
