@@ -25,7 +25,7 @@ player.set_y(472)
 player.set_image_path('assets/images/sprites/doctor_128.png')
 
 # wave counter
-wave = 25
+wave = 100
 viruses = []
 
 def random_x_start():
@@ -57,24 +57,61 @@ def random_x_start():
         return 720
 
 def random_y_start():
-    result = random.randint(1, 8)
+    if wave == 1:
+        result = 1
+    elif wave > 1 and wave <= 4:
+        result = random.randint(1, 3)
+    elif wave > 4 and wave <= 10:
+        result = random.randint(1, 3)
+    elif wave > 10:
+        result = random.randint(1, 4)
 
+    # result values
     if result == 1:
         return -62
+
     elif result == 2:
         return -126
+
     elif result == 3:
         return -190
+
     elif result == 4:
         return -254
-    elif result == 5:
-        return -318
-    elif result == 6:
-        return -382
-    elif result == 7:
-        return -446
-    elif result == 8:
-        return -510
+
+def random_speed():
+
+    if wave <= 2:
+        return 0.5
+
+    if wave > 2 and wave <= 5:
+        result = random.randint(1, 2)
+        if result == 1:
+            return 0.5
+        else:
+            return 1
+
+    if wave > 5 and wave <= 10:
+        result = random.randint(1, 3)
+        if result == 1:
+            return 1
+        elif result == 2:
+            return 1.5
+        else:
+            return 2
+
+    if wave > 10:
+        result = random.randint(1, 4)
+        if result == 1:
+            return 2
+        elif result == 2:
+            return 2.5
+        elif result == 3:
+            return 3
+        elif result == 4:
+            return 3.5
+        else:
+            return 1
 
 def create_viruses(waves):
     viruses_created = []
@@ -82,6 +119,7 @@ def create_viruses(waves):
         virus = Sprite(pygame, Screen.object)
         virus.set_x(random_x_start())
         virus.set_y(random_y_start())
+        virus.set_speed(random_speed())
         virus.set_image_path('assets/images/sprites/virus_64.png')
         viruses_created.append(virus)
         waves -= 1
@@ -183,9 +221,9 @@ def game_loop():
             # check keystrokes
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
-                    player_x_change = -15
+                    player_x_change = -20
                 if event.key == pygame.K_RIGHT:
-                    player_x_change = 15
+                    player_x_change = 20
 
             if event.type == pygame.KEYUP:
                 if (event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT):
@@ -206,7 +244,7 @@ def game_loop():
 
         for i in range(wave):
             viruses[i].draw()
-            viruses[i].set_y(viruses[i].get_y() + 1)
+            viruses[i].set_y(viruses[i].get_y() + viruses[i].get_speed())
 
          # updates the screen on every iteration of the game loop
         pygame.display.update()

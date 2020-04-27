@@ -21,6 +21,7 @@ class Sprite:
         print('--------------')
         print('x:', self.x)
         print('y:', self.y)
+        print('speed:', self.speed)
         print('image path:', self.image_path)
         print('rendered:', self.rendered)
 
@@ -39,6 +40,14 @@ class Sprite:
 
     def get_y(self):
         return self.y
+
+    # set sprite speed (optional)
+    # "speed" is int
+    def set_speed(self, speed):
+        self.speed = speed
+
+    def get_speed(self):
+        return self.speed
 
     # set image path, where "image_path" is a str
     def set_image_path(self, image_path):
