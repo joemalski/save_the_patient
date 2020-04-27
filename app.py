@@ -2,7 +2,7 @@
 # Description: main module for the game.
 # Date: April 23, 2020
 
-import pygame, sys, math
+import pygame, sys, math, random
 
 from core.screen import Screen
 from core.sprite import Sprite
@@ -25,7 +25,69 @@ player.set_y(472)
 player.set_image_path('assets/images/sprites/doctor_128.png')
 
 # wave counter
-wave = 1
+wave = 25
+viruses = []
+
+def random_x_start():
+    result = random.randint(1, 12)
+
+    if result == 1:
+        return 16
+    elif result == 2:
+        return 80
+    elif result == 3:
+        return 144
+    elif result == 4:
+        return 208
+    elif result == 5:
+        return 272
+    elif result == 6:
+        return 336
+    elif result == 7:
+        return 400
+    elif result == 8:
+        return 464
+    elif result == 9:
+        return 528
+    elif result == 10:
+        return 592
+    elif result == 11:
+        return 656
+    elif result == 12:
+        return 720
+
+def random_y_start():
+    result = random.randint(1, 8)
+
+    if result == 1:
+        return -62
+    elif result == 2:
+        return -126
+    elif result == 3:
+        return -190
+    elif result == 4:
+        return -254
+    elif result == 5:
+        return -318
+    elif result == 6:
+        return -382
+    elif result == 7:
+        return -446
+    elif result == 8:
+        return -510
+
+def create_viruses(waves):
+    viruses_created = []
+    while waves >= 1:
+        virus = Sprite(pygame, Screen.object)
+        virus.set_x(random_x_start())
+        virus.set_y(random_y_start())
+        virus.set_image_path('assets/images/sprites/virus_64.png')
+        viruses_created.append(virus)
+        waves -= 1
+
+    return viruses_created
+
 
 def is_collision(enemy_x, enemy_y, bullet_x, bullet_y):
     distance = math.sqrt(math.pow(enemy_x-bullet_x, 2) + math.pow(enemy_y-bullet_y, 2))
@@ -95,11 +157,13 @@ def show_wave_page_screen():
 
 # game loop
 def game_loop():
+
     # set_repeat(), for smoother keypress responses
     pygame.key.set_repeat(10,10)
 
     game_loop_flag = True
     player_x_change = 0
+    viruses = create_viruses(wave)
 
     while game_loop_flag:
         # set screen background
@@ -140,27 +204,14 @@ def game_loop():
 
         player.draw()
 
-        # --- temp code begin
-        # To show virus positions
-        x = 12
-        y = 46
-        for a in range(0, 6):
-            for b in range(0, 12):                
-                virus = Sprite(pygame, Screen.object)
-                virus.set_x(x)
-                virus.set_y(y)
-                virus.set_image_path('assets/images/sprites/virus_64.png')
-                virus.draw()
-                x += 64
-            x = 12
-            y += 64
-        # ---temp code end
+        for i in range(wave):
+            viruses[i].draw()
+            viruses[i].set_y(viruses[i].get_y() + 1)
 
-        # updates the screen on every iteration of the game loop
+         # updates the screen on every iteration of the game loop
         pygame.display.update()
 
     game_quit()
-
 
 # show wave text
 show_wave_page_screen()
