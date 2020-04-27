@@ -173,7 +173,7 @@ def game_loop():
             (0, 0))
 
         # set header
-        set_menu_header(10, 0, 1)
+        set_menu_header(wave + 5, 0, wave)
 
         # check events
         for event in pygame.event.get():
