@@ -25,7 +25,7 @@ player.set_y(472)
 player.set_image_path('assets/images/sprites/doctor_128.png')
 
 # wave counter
-wave = 100
+wave = 50
 viruses = []
 
 def random_x_start():
@@ -101,17 +101,17 @@ def random_speed():
             return 2
 
     if wave > 10:
-        result = random.randint(1, 4)
+        result = random.randint(1, 5)
         if result == 1:
-            return 2
+            return 0.5
         elif result == 2:
-            return 2.5
-        elif result == 3:
-            return 3
-        elif result == 4:
-            return 3.5
-        else:
             return 1
+        elif result == 3:
+            return 1.5
+        elif result == 4:
+            return 2
+        elif result == 5:
+            return 2.5
 
 def create_viruses(waves):
     viruses_created = []
