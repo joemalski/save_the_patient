@@ -13,7 +13,7 @@ class Sprite:
         self.x = None
         self.y = None
         self.image_path = None
-        self.rendered = None
+        self.rendered = True
 
     # show sprite's object values
     def show_details(self):
@@ -56,13 +56,12 @@ class Sprite:
     def get_image_path(self):
         return self.image_path
 
-    # returns status of the sprite if rendered or not
-    # returns True or False
-    def is_rendered(self):
-        if self.rendered:
-            return True
-        else:
-            return False
+    # set rendered to True or False values
+    def set_rendered(self, value):
+        self.rendered = value
+
+    def get_rendered(self):
+        return self.rendered
 
     # draw sprite image on screen
     # self.image, self.x and self.y should be set or initialized first
@@ -70,4 +69,3 @@ class Sprite:
     def draw(self):
         image = self.pygame.image.load(self.image_path)
         Sprite.object.blit(image, (self.x, self.y))
-        self.rendered = True

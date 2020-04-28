@@ -25,7 +25,7 @@ player.set_y(472)
 player.set_image_path('assets/images/sprites/doctor_128.png')
 
 # wave counter
-wave = 2
+wave = 5
 viruses = []
 fired_vaccines = []
 
@@ -211,7 +211,6 @@ def game_loop():
     game_loop_flag = True
     player_x_change = 0
     viruses = create_viruses(wave)
-    virus_count = wave
 
     while game_loop_flag:
         # set screen background
@@ -257,27 +256,23 @@ def game_loop():
         player.draw()
 
         # create viruses        
-        for i in range(virus_count):
+        for i in range(len(viruses)):
             print('viruses[{}] y: {}'.format(i, viruses[i].get_y()))
             print('viruses[{}] is rendered:{}'.format(i,
-                viruses[i].is_rendered()))
+                viruses[i].get_rendered()))
 
             viruses[i].draw()
-            viruses[i].set_y(viruses[i].get_y() + viruses[i].get_speed())
+            if viruses[i].get_rendered() == True:
+                viruses[i].set_y(viruses[i].get_y() + viruses[i].get_speed())
 
             # check if virus sprite is out of bounds or is already
             # destroyed by vaccine            
             if viruses[i].get_y() > 600:
-                viruses[i].rendered = False
+                viruses[i].rendered = False   
 
-        # deduct the virus_count for every virus rendered false
-        for i in range(virus_count):
-            if viruses[i].is_rendered() == False:
-                virus_count -= 1
-            
-
-        # fire vaccine movement        
-        for i in range(len(fired_vaccines)):
+        # fire vaccine movement
+        fired_vaccines_counter = len(fired_vaccines)
+        for i in range(fired_vaccines_counter):
             fired_vaccines[i].draw()
             fired_vaccines[i].set_y(fired_vaccines[i].get_y() - 
                 fired_vaccines[i].get_speed())
@@ -287,6 +282,11 @@ def game_loop():
 
     game_quit()
 
+
+
+# ------------------------
+# Program Execution Point
+# -------------------------
 # show wave text
 show_wave_page_screen()
 
