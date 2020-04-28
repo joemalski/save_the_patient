@@ -266,10 +266,11 @@ def game_loop():
 
         # viruses movement       
         for i, virus in enumerate(viruses):
-            ''' For Testing Purposes:'''
+            ''' For Testing Purposes:
             print('viruses[{}] y: {}'.format(i, virus.get_y()))
             print('viruses[{}] is rendered:{}'.format(i,
                 virus.get_rendered()))
+            '''
 
             virus.draw()
             if virus.get_rendered() == True:
@@ -278,27 +279,25 @@ def game_loop():
             # check if virus sprite is out of the screen 
             if virus.get_y() > 600:
                 virus.set_rendered(False)
-                viruses.pop(i)
+                viruses.pop(i) # remove list element
 
         # fire vaccine movement
-        fired_vaccines_counter = len(fired_vaccines)
-        for i in range(fired_vaccines_counter):
-            ''' For Testing Purposes:
+        for i, fired_vaccine in enumerate(fired_vaccines):
+            ''' For Testing Purposes: '''
             print('fired_vaccines[{}] y: {}'.format(i,
-                fired_vaccines[i].get_y()))
+                fired_vaccine.get_y()))
             print('fired_vaccines[{}] is rendered:{}'.format(i,
-                fired_vaccines[i].get_rendered()))
-            '''
+                fired_vaccine.get_rendered()))
 
-            fired_vaccines[i].draw()
-            if fired_vaccines[i].get_rendered() == True:
-                fired_vaccines[i].set_y(fired_vaccines[i].get_y() - 
-                    fired_vaccines[i].get_speed())
+            fired_vaccine.draw()
+            if fired_vaccine.get_rendered() == True:
+                fired_vaccine.set_y(fired_vaccine.get_y() - 
+                    fired_vaccine.get_speed())
 
-            # check if vaccine sprite is out of bounds or has already
-            # destroyed a virus
-            if fired_vaccines[i].get_y() < -64:
-                fired_vaccines[i].set_rendered(False)
+            # check if fired vaccine sprite is out of the screen 
+            if fired_vaccine.get_y() < -64:
+                fired_vaccine.set_rendered(False)
+                fired_vaccines.pop(i) # remove list element
 
         # collision detection
         for i in range(len(viruses)):
