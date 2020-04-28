@@ -25,7 +25,7 @@ player.set_y(472)
 player.set_image_path('assets/images/sprites/doctor_128.png')
 
 # wave counter
-wave = 10
+wave = 45
 viruses = []
 fired_vaccines = []
 
@@ -283,11 +283,12 @@ def game_loop():
 
         # fire vaccine movement
         for i, fired_vaccine in enumerate(fired_vaccines):
-            ''' For Testing Purposes: '''
+            ''' For Testing Purposes:
             print('fired_vaccines[{}] y: {}'.format(i,
                 fired_vaccine.get_y()))
             print('fired_vaccines[{}] is rendered:{}'.format(i,
                 fired_vaccine.get_rendered()))
+            '''
 
             fired_vaccine.draw()
             if fired_vaccine.get_rendered() == True:
@@ -300,18 +301,20 @@ def game_loop():
                 fired_vaccines.pop(i) # remove list element
 
         # collision detection
-        for i in range(len(viruses)):
-            for j in range(len(fired_vaccines)):
-                collision = is_collision(viruses[i].get_x(),
-                                viruses[i].get_y(),
-                                fired_vaccines[j].get_x(),
-                                fired_vaccines[j].get_y())
+        for i, virus in enumerate(viruses):
+            for j, fired_vaccine in enumerate(fired_vaccines):
+                collision = is_collision(virus.get_x(),
+                                virus.get_y(),
+                                fired_vaccine.get_x(),
+                                fired_vaccine.get_y())
                 if collision:
-                    viruses[i].set_rendered(False)
-                    viruses[i].set_y(-64)
-                    fired_vaccines[j].set_rendered(False)
-                    fired_vaccines[j].set_y(-64)
-                    #print('Hit Virus Bitch!!! viruses[{}]'.format(i))
+                    virus.set_rendered(False)
+                    virus.set_y(-64)
+                    viruses.pop(i) # remove virus list element
+                    fired_vaccine.set_rendered(False)
+                    fired_vaccine.set_y(-64)
+                    fired_vaccines.pop(j) # remove fired_vaccine list element
+                    print('SARS-COVID-2 Virus has been hit !!!')
 
 
         # updates the screen on every iteration of the game loop
