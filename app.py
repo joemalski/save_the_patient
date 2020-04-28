@@ -25,7 +25,7 @@ player.set_y(472)
 player.set_image_path('assets/images/sprites/doctor_128.png')
 
 # wave counter
-wave = 45
+wave = 50
 viruses = []
 fired_vaccines = []
 
@@ -122,7 +122,9 @@ def create_viruses(waves):
         virus.set_y(random_y_start())
         virus.set_speed(random_speed())
         virus.set_image_path('assets/images/sprites/virus_64.png')
+        viruses_created.append(virus)
 
+        '''
         # check of any duplicates
         duplicates = False
         for i in range(len(viruses_created)):
@@ -132,7 +134,9 @@ def create_viruses(waves):
 
         if duplicates == False:
             viruses_created.append(virus)
-            waves -= 1        
+            waves -= 1
+        '''
+        waves -= 1
 
     return viruses_created
 
