@@ -25,7 +25,7 @@ player.set_y(472)
 player.set_image_path('assets/images/sprites/doctor_128.png')
 
 # wave counter
-wave = 100
+wave = 25
 viruses = []
 fired_vaccines = []
 
@@ -181,7 +181,7 @@ def set_menu_header(ammo_value, virus_killed, wave):
     ammo_image.draw()
 
     # ammo value    
-    ammo_text = font.render('(left) x ' + str(ammo_value),
+    ammo_text = font.render('(FIRED) x ' + str(ammo_value),
         True, (0, 255, 0))
     Screen.object.blit(ammo_text, (25, 5))
 
@@ -193,7 +193,7 @@ def set_menu_header(ammo_value, virus_killed, wave):
     virus_image.draw()
 
     # virus killed
-    virus_text = font.render('(killed) x ' + str(virus_killed),
+    virus_text = font.render('(KILLED) x ' + str(virus_killed),
         True, (0, 255, 0))
     Screen.object.blit(virus_text, (25, 30))
 
@@ -234,7 +234,8 @@ def game_loop():
     game_loop_flag = True
     player_x_change = 0
     viruses = create_viruses(wave)
-
+    score = 0
+    fired = 0
     while game_loop_flag:
         # set screen background
         main_screen.set_background_color((192, 192, 192))
@@ -243,7 +244,7 @@ def game_loop():
             (0, 0))
 
         # set header
-        set_menu_header(wave + 5, 0, wave)
+        set_menu_header(fired, score, wave)
 
         # check events
         for event in pygame.event.get():
@@ -258,6 +259,7 @@ def game_loop():
                     player_x_change = 20
                 if event.key == pygame.K_SPACE:
                     pygame.key.set_repeat(0)
+                    fired += 1
                     fired_vaccines.append(create_fired_vaccines(
                         player.get_x()+32, player.get_y()+64))
 
@@ -328,6 +330,9 @@ def game_loop():
                     fired_vaccine.set_rendered(False)
                     fired_vaccine.set_y(-64)
                     fired_vaccines.pop(j) # remove fired_vaccine list element
+                    score += 1
+
+                    # for testing
                     #print('SARS-COVID-2 Virus has been hit !!!')
 
 
