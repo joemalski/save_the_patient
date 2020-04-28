@@ -122,23 +122,15 @@ def create_viruses(waves):
         virus.set_y(random_y_start())
         virus.set_speed(random_speed())
         virus.set_image_path('assets/images/sprites/virus_64.png')
-        viruses_created.append(virus)
 
-        '''
-        # check of any duplicates
-        # Note: Disabling this means you have to hit a virus multiple times
-        #       because it might be spawned on the same location multiple times
-        #       Enabling it will cause lags in higher waves.
-        duplicates = False
+        # check of any duplicates, change sprite imaged to virus mutated
         for i in range(len(viruses_created)):
             if (virus.get_x() == viruses_created[i].get_x() and
                 virus.get_y() == viruses_created[i].get_y()):
-                    duplicates = True
 
-        if duplicates == False:
-            viruses_created.append(virus)
-            waves -= 1
-        '''
+                viruses_created[i].set_image_path('assets/images/sprites/mutated_virus_64.png')
+
+        viruses_created.append(virus)
         waves -= 1
 
     return viruses_created
