@@ -25,7 +25,7 @@ player.set_y(472)
 player.set_image_path('assets/images/sprites/doctor_128.png')
 
 # wave counter
-wave = 5
+wave = 25
 viruses = []
 fired_vaccines = []
 
@@ -236,7 +236,7 @@ def game_loop():
                 if event.key == pygame.K_SPACE:
                     pygame.key.set_repeat(0)
                     fired_vaccines.append(create_fired_vaccines(
-                        player.get_x()+32, player.get_y()-64))
+                        player.get_x()+32, player.get_y()+64))
 
             if event.type == pygame.KEYUP:
                 if (event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT):
@@ -270,15 +270,17 @@ def game_loop():
             # check if virus sprite is out of bounds or is already
             # destroyed by vaccine            
             if viruses[i].get_y() > 600:
-                viruses[i].rendered = False   
+                viruses[i].set_rendered(False)
 
         # fire vaccine movement
         fired_vaccines_counter = len(fired_vaccines)
         for i in range(fired_vaccines_counter):
+            '''
             print('fired_vaccines[{}] y: {}'.format(i,
                 fired_vaccines[i].get_y()))
             print('fired_vaccines[{}] is rendered:{}'.format(i,
                 fired_vaccines[i].get_rendered()))
+            '''
 
             fired_vaccines[i].draw()
             if fired_vaccines[i].get_rendered() == True:
@@ -288,7 +290,22 @@ def game_loop():
             # check if vaccine sprite is out of bounds or has already
             # destroyed a virus
             if fired_vaccines[i].get_y() < -64:
-                fired_vaccines[i].rendered = False               
+                fired_vaccines[i].set_rendered(False)
+
+        # collision detection
+        for i in range(len(viruses)):
+            for j in range(len(fired_vaccines)):
+                collision = is_collision(viruses[i].get_x(),
+                                viruses[i].get_y(),
+                                fired_vaccines[j].get_x(),
+                                fired_vaccines[j].get_y())
+                if collision:
+                    viruses[i].rendered = False
+                    viruses[i].set_y(-64)
+                    fired_vaccines[j].rendered = False
+                    fired_vaccines[j].set_y(-64)
+                    print('Hit Virus Bitch!!! viruses[{}]'.format(i))
+
 
         # updates the screen on every iteration of the game loop
         pygame.display.update()
