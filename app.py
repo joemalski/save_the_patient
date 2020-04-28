@@ -25,7 +25,7 @@ player.set_y(472)
 player.set_image_path('assets/images/sprites/doctor_128.png')
 
 # wave counter
-wave = 5
+wave = 10
 viruses = []
 fired_vaccines = []
 
@@ -130,7 +130,7 @@ def create_viruses(waves):
 
 def is_collision(enemy_x, enemy_y, bullet_x, bullet_y):
     distance = math.sqrt(math.pow(enemy_x-bullet_x, 2) + math.pow(enemy_y-bullet_y, 2))
-    if distance < 27:
+    if distance < 64:
         return True
     else:
         return False
