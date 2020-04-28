@@ -4,6 +4,7 @@
 
 import pygame, sys, math, random
 
+from pygame import mixer
 from core.screen import Screen
 from core.sprite import Sprite
 
@@ -154,6 +155,8 @@ def create_viruses(waves):
 def is_collision(enemy_x, enemy_y, bullet_x, bullet_y):
     distance = math.sqrt(math.pow(enemy_x-bullet_x, 2) + math.pow(enemy_y-bullet_y, 2))
     if distance < 64:
+        explosion_sound = mixer.Sound('assets/sounds/explosion.wav')
+        explosion_sound.play()
         return True
     else:
         return False
@@ -164,6 +167,10 @@ def create_fired_vaccines(x, y):
         vaccine.set_y(y)
         vaccine.set_speed(8)
         vaccine.set_image_path('assets/images/sprites/vaccine_64.png')
+
+        laser_sound = mixer.Sound('assets/sounds/laser.wav')
+        laser_sound.play()
+
         return vaccine
 
 def set_menu_header(ammo_value, virus_killed, wave):
@@ -206,6 +213,12 @@ def game_quit():
 
 # show's the wave page screen
 def show_wave_page_screen():
+
+    # background sound
+    mixer.music.stop() # stop previous music
+    mixer.music.load('assets/sounds/background_1.wav')
+    mixer.music.play() # -1, makes it infinite loop
+
     wave_page_flag = True
     font = pygame.font.Font('freesansbold.ttf', 32)
     wave_text = font.render('Wave ' + str(wave), True, (255, 0, 0))
@@ -227,6 +240,11 @@ def show_wave_page_screen():
 
 # game loop
 def game_loop():
+
+    # background sound
+    mixer.music.stop() # stop previous music
+    mixer.music.load('assets/sounds/background_2.wav')
+    mixer.music.play(-1) # -1, makes it infinite loop
 
     # set_repeat(), for smoother keypress responses
     pygame.key.set_repeat(10,10)
