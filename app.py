@@ -265,21 +265,20 @@ def game_loop():
         player.draw()
 
         # viruses movement       
-        for i in range(len(viruses)):
-            ''' For Testing Purposes:
-            print('viruses[{}] y: {}'.format(i, viruses[i].get_y()))
+        for i, virus in enumerate(viruses):
+            ''' For Testing Purposes:'''
+            print('viruses[{}] y: {}'.format(i, virus.get_y()))
             print('viruses[{}] is rendered:{}'.format(i,
-                viruses[i].get_rendered()))
-            '''
+                virus.get_rendered()))
 
-            viruses[i].draw()
-            if viruses[i].get_rendered() == True:
-                viruses[i].set_y(viruses[i].get_y() + viruses[i].get_speed())
+            virus.draw()
+            if virus.get_rendered() == True:
+                virus.set_y(virus.get_y() + virus.get_speed())
 
-            # check if virus sprite is out of bounds or is already
-            # destroyed by vaccine            
-            if viruses[i].get_y() > 600:
-                viruses[i].set_rendered(False)
+            # check if virus sprite is out of the screen 
+            if virus.get_y() > 600:
+                virus.set_rendered(False)
+                viruses.pop(i)
 
         # fire vaccine movement
         fired_vaccines_counter = len(fired_vaccines)
@@ -313,7 +312,7 @@ def game_loop():
                     viruses[i].set_y(-64)
                     fired_vaccines[j].set_rendered(False)
                     fired_vaccines[j].set_y(-64)
-                    print('Hit Virus Bitch!!! viruses[{}]'.format(i))
+                    #print('Hit Virus Bitch!!! viruses[{}]'.format(i))
 
 
         # updates the screen on every iteration of the game loop
