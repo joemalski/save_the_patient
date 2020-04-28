@@ -139,7 +139,7 @@ def create_fired_vaccines(x, y):
         vaccine = Sprite(pygame, Screen.object)
         vaccine.set_x(x)
         vaccine.set_y(y)
-        vaccine.set_speed(5)
+        vaccine.set_speed(8)
         vaccine.set_image_path('assets/images/sprites/vaccine_64.png')
         return vaccine
 
@@ -257,9 +257,11 @@ def game_loop():
 
         # create viruses        
         for i in range(len(viruses)):
+            '''
             print('viruses[{}] y: {}'.format(i, viruses[i].get_y()))
             print('viruses[{}] is rendered:{}'.format(i,
                 viruses[i].get_rendered()))
+            '''
 
             viruses[i].draw()
             if viruses[i].get_rendered() == True:
@@ -273,9 +275,20 @@ def game_loop():
         # fire vaccine movement
         fired_vaccines_counter = len(fired_vaccines)
         for i in range(fired_vaccines_counter):
+            print('fired_vaccines[{}] y: {}'.format(i,
+                fired_vaccines[i].get_y()))
+            print('fired_vaccines[{}] is rendered:{}'.format(i,
+                fired_vaccines[i].get_rendered()))
+
             fired_vaccines[i].draw()
-            fired_vaccines[i].set_y(fired_vaccines[i].get_y() - 
-                fired_vaccines[i].get_speed())
+            if fired_vaccines[i].get_rendered() == True:
+                fired_vaccines[i].set_y(fired_vaccines[i].get_y() - 
+                    fired_vaccines[i].get_speed())
+
+            # check if vaccine sprite is out of bounds or has already
+            # destroyed a virus
+            if fired_vaccines[i].get_y() < -64:
+                fired_vaccines[i].rendered = False               
 
         # updates the screen on every iteration of the game loop
         pygame.display.update()
