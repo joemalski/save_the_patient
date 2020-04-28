@@ -25,7 +25,7 @@ player.set_y(472)
 player.set_image_path('assets/images/sprites/doctor_128.png')
 
 # wave counter
-wave = 10
+wave = 100
 viruses = []
 fired_vaccines = []
 
@@ -128,7 +128,22 @@ def create_viruses(waves):
             if (virus.get_x() == viruses_created[i].get_x() and
                 virus.get_y() == viruses_created[i].get_y()):
 
-                viruses_created[i].set_image_path('assets/images/sprites/mutated_virus_64.png')
+                mutation = random.randint(1, 3)
+                if mutation == 1:
+                    virus.set_image_path(
+                        'assets/images/sprites/mutated_64.png')
+                    viruses_created[i].set_image_path('assets/images/sprites/mutated_64.png')
+                elif mutation == 2:
+                    virus.set_image_path(
+                        'assets/images/sprites/mutated_64.png')
+                    viruses_created[i].set_image_path('assets/images/sprites/mutated_64.png')
+                else:
+                    virus.set_image_path(
+                        'assets/images/sprites/mers_64.png')
+                    viruses_created[i].set_image_path('assets/images/sprites/mers_64.png')
+
+                virus.set_speed(1)
+                viruses_created[i].set_speed(1)
 
         viruses_created.append(virus)
         waves -= 1
@@ -313,7 +328,7 @@ def game_loop():
                     fired_vaccine.set_rendered(False)
                     fired_vaccine.set_y(-64)
                     fired_vaccines.pop(j) # remove fired_vaccine list element
-                    print('SARS-COVID-2 Virus has been hit !!!')
+                    #print('SARS-COVID-2 Virus has been hit !!!')
 
 
         # updates the screen on every iteration of the game loop
