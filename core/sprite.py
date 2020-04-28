@@ -13,7 +13,7 @@ class Sprite:
         self.x = None
         self.y = None
         self.image_path = None
-        self.rendered = False
+        self.rendered = None
 
     # show sprite's object values
     def show_details(self):

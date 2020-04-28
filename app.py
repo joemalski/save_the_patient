@@ -25,8 +25,9 @@ player.set_y(472)
 player.set_image_path('assets/images/sprites/doctor_128.png')
 
 # wave counter
-wave = 50
+wave = 2
 viruses = []
+fired_vaccines = []
 
 def random_x_start():
     result = random.randint(1, 12)
@@ -134,6 +135,14 @@ def is_collision(enemy_x, enemy_y, bullet_x, bullet_y):
     else:
         return False
 
+def create_fired_vaccines(x, y):
+        vaccine = Sprite(pygame, Screen.object)
+        vaccine.set_x(x)
+        vaccine.set_y(y)
+        vaccine.set_speed(5)
+        vaccine.set_image_path('assets/images/sprites/vaccine_64.png')
+        return vaccine
+
 def set_menu_header(ammo_value, virus_killed, wave):
     # add
     font = pygame.font.Font('freesansbold.ttf', 16)
@@ -202,6 +211,7 @@ def game_loop():
     game_loop_flag = True
     player_x_change = 0
     viruses = create_viruses(wave)
+    virus_count = wave
 
     while game_loop_flag:
         # set screen background
@@ -224,6 +234,10 @@ def game_loop():
                     player_x_change = -20
                 if event.key == pygame.K_RIGHT:
                     player_x_change = 20
+                if event.key == pygame.K_SPACE:
+                    pygame.key.set_repeat(0)
+                    fired_vaccines.append(create_fired_vaccines(
+                        player.get_x()+32, player.get_y()-64))
 
             if event.type == pygame.KEYUP:
                 if (event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT):
@@ -242,11 +256,33 @@ def game_loop():
 
         player.draw()
 
-        for i in range(wave):
+        # create viruses        
+        for i in range(virus_count):
+            print('viruses[{}] y: {}'.format(i, viruses[i].get_y()))
+            print('viruses[{}] is rendered:{}'.format(i,
+                viruses[i].is_rendered()))
+
             viruses[i].draw()
             viruses[i].set_y(viruses[i].get_y() + viruses[i].get_speed())
 
-         # updates the screen on every iteration of the game loop
+            # check if virus sprite is out of bounds or is already
+            # destroyed by vaccine            
+            if viruses[i].get_y() > 600:
+                viruses[i].rendered = False
+
+        # deduct the virus_count for every virus rendered false
+        for i in range(virus_count):
+            if viruses[i].is_rendered() == False:
+                virus_count -= 1
+            
+
+        # fire vaccine movement        
+        for i in range(len(fired_vaccines)):
+            fired_vaccines[i].draw()
+            fired_vaccines[i].set_y(fired_vaccines[i].get_y() - 
+                fired_vaccines[i].get_speed())
+
+        # updates the screen on every iteration of the game loop
         pygame.display.update()
 
     game_quit()
