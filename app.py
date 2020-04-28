@@ -25,7 +25,7 @@ player.set_y(472)
 player.set_image_path('assets/images/sprites/doctor_128.png')
 
 # wave counter
-wave = 50
+wave = 10
 viruses = []
 fired_vaccines = []
 
@@ -126,6 +126,9 @@ def create_viruses(waves):
 
         '''
         # check of any duplicates
+        # Note: Disabling this means you have to hit a virus multiple times
+        #       because it might be spawned on the same location multiple times
+        #       Enabling it will cause lags in higher waves.
         duplicates = False
         for i in range(len(viruses_created)):
             if (virus.get_x() == viruses_created[i].get_x() and
