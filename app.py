@@ -155,8 +155,8 @@ def create_viruses(waves):
 def is_collision(enemy_x, enemy_y, bullet_x, bullet_y):
     distance = math.sqrt(math.pow(enemy_x-bullet_x, 2) + math.pow(enemy_y-bullet_y, 2))
     if distance < 64:
-        explosion_sound = mixer.Sound('assets/sounds/explosion.wav')
-        explosion_sound.play()
+        decapitation_sound = mixer.Sound('assets/sounds/decapitation.wav')
+        decapitation_sound.play()
         return True
     else:
         return False
