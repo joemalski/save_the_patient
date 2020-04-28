@@ -309,9 +309,9 @@ def game_loop():
                                 fired_vaccines[j].get_x(),
                                 fired_vaccines[j].get_y())
                 if collision:
-                    viruses[i].rendered = False
+                    viruses[i].set_rendered(False)
                     viruses[i].set_y(-64)
-                    fired_vaccines[j].rendered = False
+                    fired_vaccines[j].set_rendered(False)
                     fired_vaccines[j].set_y(-64)
                     print('Hit Virus Bitch!!! viruses[{}]'.format(i))
 
