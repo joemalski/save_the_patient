@@ -280,12 +280,12 @@ def game_loop():
                 fired_vaccines[i].get_y()))
             print('fired_vaccines[{}] is rendered:{}'.format(i,
                 fired_vaccines[i].get_rendered()))
+            '''
 
             fired_vaccines[i].draw()
             if fired_vaccines[i].get_rendered() == True:
                 fired_vaccines[i].set_y(fired_vaccines[i].get_y() - 
                     fired_vaccines[i].get_speed())
-            '''
 
             # check if vaccine sprite is out of bounds or has already
             # destroyed a virus
