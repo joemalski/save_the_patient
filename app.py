@@ -255,7 +255,7 @@ def game_loop():
 
         player.draw()
 
-        # create viruses        
+        # viruses movement       
         for i in range(len(viruses)):
             ''' For Testing Purposes:
             print('viruses[{}] y: {}'.format(i, viruses[i].get_y()))
