@@ -234,6 +234,10 @@ def set_menu_header(ammo_value, virus_killed, wave):
 
 # show's the first page screen
 def show_first_page_screen(main_screen):
+    # set_repeat() stop key repeat
+    py.key.set_repeat()
+    py.event.clear()
+
 
     # background sound
     mixer.music.stop() # stop previous music
@@ -248,31 +252,32 @@ def show_first_page_screen(main_screen):
     wave_page_flag = True
     font_1 = py.font.Font('freesansbold.ttf', 18)
     title_text = font_1.render('Save the Patient! A COVID-19 Game...', 
-        True, (255, 0, 0))
+        True, (0, 255, 0))
     Screen.object.blit(title_text, (250, 220))
 
     
     font_2 = py.font.Font('freesansbold.ttf', 16)
 
-    instruction_1_text = font_2.render('[SPACEBAR] - fire', True, (255, 0, 0))
+    instruction_1_text = font_2.render('[SPACEBAR] - fire', True, (0, 255, 0))
     Screen.object.blit(instruction_1_text, (300, 270))
 
     instruction_2_text = font_2.render('[ARROW LEFT] - move left',
-        True, (255, 0, 0))
+        True, (0, 255, 0))
     Screen.object.blit(instruction_2_text, (300, 290))
 
     instruction_3_text = font_2.render('[ARROW RIGHT] - move right',
-        True, (255, 0, 0))
+        True, (0, 255, 0))
     Screen.object.blit(instruction_3_text, (300, 310))
   
     instruction_4_text = font_2.render(
         'Press Enter to continue',
-        True, (255, 0, 0))
+        True, (0, 255, 0))
     Screen.object.blit(instruction_4_text, (300, 350))
     
 
     # updates the screen on every iteration of the game loop
     py.display.update()
+    py.event.clear()
 
     while wave_page_flag:
         # check events
@@ -297,6 +302,7 @@ def game_loop(main_screen, player, wave):
 
     # set_repeat(), for smoother keypress responses
     py.key.set_repeat(10,10)
+    py.event.clear()
 
     game_loop_flag = True
     player_x_change = 0
@@ -425,6 +431,7 @@ def game_loop(main_screen, player, wave):
 
             result = None
             font_1 = py.font.Font('freesansbold.ttf', 32)
+            font_2 = py.font.Font('freesansbold.ttf', 16)
             if score < wave:
                 game_over_text = font_1.render(
                 'Game Over', True, (255, 0, 0))
@@ -434,20 +441,24 @@ def game_loop(main_screen, player, wave):
                 'Virus Killed: ' + str(score), True, (255, 0, 0))
                 Screen.object.blit(score_text, (300, 290))
                 result = False
+
+                press_enter_text = font_2.render(
+                'Press Enter to continue', True, (255, 0, 0))
+                Screen.object.blit(press_enter_text, (325, 340))
+
             else:
                 next_wave_text = font_1.render(
-                'Next Virus Wave: ' + str(wave + 1), True, (255, 0, 0))
+                'Next Virus Wave: ' + str(wave + 1), True, (0, 255, 0))
                 Screen.object.blit(next_wave_text, (270, 250))
 
                 score_text = font_1.render(
-                'Virus Killed: ' + str(score), True, (255, 0, 0))
+                'Virus Killed: ' + str(score), True, (0, 255, 0))
                 Screen.object.blit(score_text, (300, 290))
                 result = True
 
-            font_2 = py.font.Font('freesansbold.ttf', 16)
-            press_enter_text = font_2.render(
-            'Press Enter to continue', True, (255, 0, 0))
-            Screen.object.blit(press_enter_text, (325, 340))
+                press_enter_text = font_2.render(
+                'Press Enter to continue', True, (0, 255, 0))
+                Screen.object.blit(press_enter_text, (325, 340))
 
             py.display.update()
 
@@ -462,7 +473,6 @@ def game_loop(main_screen, player, wave):
                     if event.type == py.KEYDOWN:
                         if event.key == py.K_RETURN:
                             game_loop_flag = False
-                            py.event.clear()
                             return result
           
 # quit the game
@@ -471,7 +481,6 @@ def game_quit():
 
     # quits pygame
     app_main_loop_flag = False
-    py.event.clear()
     py.quit()
     print('\nThanks for playing... Stay Home, Stay Safe!\n')
     sys.exit()
