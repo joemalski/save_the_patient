@@ -28,6 +28,7 @@ app_player.set_image_path('assets/images/sprites/doctor_128.png')
 
 # app variables
 app_wave = 1
+app_main_loop_flag = True # This is global !
 
 # randomize x starting position
 def random_x_start():
@@ -214,14 +215,6 @@ def set_menu_header(ammo_value, virus_killed, wave):
         True, (0, 255, 0))
     Screen.object.blit(virus_text, (25, 30))
 
-# quit the game
-def game_quit():
-    # quits pygame
-    py.event.clear()
-    py.quit()
-    print('\nThanks for playing... Stay Home, Stay Safe!\n')
-    sys.exit()
-
 # show's the wave page screen
 def show_wave_page_screen(wave, main_screen):
 
@@ -308,6 +301,7 @@ def game_loop(main_screen, player, wave):
             if event.type == py.QUIT:
                 game_loop_flag = False
                 py.event.clear()
+                game_quit()
 
             # check keystrokes
             if event.type == py.KEYDOWN:
@@ -453,13 +447,23 @@ def game_loop(main_screen, player, wave):
                             py.event.clear()
                             return result
           
+# quit the game
+def game_quit():
+    global app_main_loop_flag
+
+    # quits pygame
+    app_main_loop_flag = False
+    py.event.clear()
+    py.quit()
+    print('\nThanks for playing... Stay Home, Stay Safe!\n')
+    sys.exit()
 
 
 # ------------------------
 # Program Execution Point
 # -------------------------
 
-while True:
+while app_main_loop_flag:
 
     # show wave text
     if app_wave == 1:
