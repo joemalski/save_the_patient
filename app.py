@@ -204,9 +204,9 @@ def create_fired_vaccines(x, y):
 # menu header for the game window
 def set_menu_header(ammo_value, virus_killed, wave):
     font = py.font.Font('freesansbold.ttf', 16)
-    wave_text = font.render('Wave ' + str(wave),
+    wave_text = font.render('COVID-19 Wave ' + str(wave),
         True, (0, 255, 0))
-    Screen.object.blit(wave_text, (380, 5))
+    Screen.object.blit(wave_text, (340, 5))
 
     # ammo image
     ammo_image = Sprite(py, Screen.object)
@@ -428,26 +428,26 @@ def game_loop(main_screen, player, wave):
             if score < wave:
                 game_over_text = font_1.render(
                 'Game Over', True, (255, 0, 0))
-                Screen.object.blit(game_over_text, (320, 250))
+                Screen.object.blit(game_over_text, (325, 250))
 
                 score_text = font_1.render(
                 'Virus Killed: ' + str(score), True, (255, 0, 0))
-                Screen.object.blit(score_text, (320, 290))
+                Screen.object.blit(score_text, (300, 290))
                 result = False
             else:
                 next_wave_text = font_1.render(
-                'Next Wave: ' + str(wave + 1), True, (255, 0, 0))
-                Screen.object.blit(next_wave_text, (320, 250))
+                'Next Virus Wave: ' + str(wave + 1), True, (255, 0, 0))
+                Screen.object.blit(next_wave_text, (270, 250))
 
                 score_text = font_1.render(
                 'Virus Killed: ' + str(score), True, (255, 0, 0))
-                Screen.object.blit(score_text, (320, 290))
+                Screen.object.blit(score_text, (300, 290))
                 result = True
 
             font_2 = py.font.Font('freesansbold.ttf', 16)
             press_enter_text = font_2.render(
             'Press Enter to continue', True, (255, 0, 0))
-            Screen.object.blit(press_enter_text, (320, 340))
+            Screen.object.blit(press_enter_text, (325, 340))
 
             py.display.update()
 
