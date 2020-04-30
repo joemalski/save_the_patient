@@ -310,10 +310,13 @@ def game_loop(main_screen, player, wave):
                 if event.key == py.K_RIGHT:
                     player_x_change = 20
                 if event.key == py.K_SPACE:
-                    py.key.set_repeat(0)
-                    fired += 1
-                    fired_vaccines.append(create_fired_vaccines(
-                        player.get_x()+32, player.get_y()+64))
+                    # check if there is still a virus
+                    # then allow to fire
+                    if len(viruses) > 0:
+                        py.key.set_repeat(0)
+                        fired += 1
+                        fired_vaccines.append(create_fired_vaccines(
+                            player.get_x()+32, player.get_y()+64))
 
             if event.type == py.KEYUP:
                 if (event.key == py.K_LEFT or event.key == py.K_RIGHT):
