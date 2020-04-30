@@ -471,8 +471,7 @@ while app_main_loop_flag:
 
     # run game loop
     result = game_loop(app_main_screen, app_player, app_wave)
-    print('result:', result)
-
+    
     if result:
         app_wave += 1
     else:
