@@ -193,7 +193,7 @@ def create_fired_vaccines(x, y):
     vaccine = Sprite(py, Screen.object)
     vaccine.set_x(x)
     vaccine.set_y(y)
-    vaccine.set_speed(8)
+    vaccine.set_speed(15)
     vaccine.set_image_path('assets/images/sprites/vaccine_64.png')
 
     laser_sound = mixer.Sound('assets/sounds/laser.wav')
