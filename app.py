@@ -13,24 +13,25 @@ from core.sprite import Sprite
 py.init()
 
 # main screen initialization
-main_screen = Screen(py)
-main_screen.set_size((800, 600))
-main_screen.set_icon_path('assets/images/sprites/coronavirus_32.png')
-main_screen.set_caption('Save the Patient! A Covid-19 Game...')
+app_main_screen = Screen(py)
+app_main_screen.set_size((800, 600))
+app_main_screen.set_icon_path('assets/images/sprites/coronavirus_32.png')
+app_main_screen.set_caption('Save the Patient! A Covid-19 Game...')
 
 
-# player screen initialization
-# initial position of player, bottom center
-player = Sprite(py, Screen.object)
-player.set_x(336)
-player.set_y(472)
-player.set_image_path('assets/images/sprites/doctor_128.png')
+# app_player screen initialization
+# initial position of app_player, bottom center
+app_player = Sprite(py, Screen.object)
+app_player.set_x(336)
+app_player.set_y(472)
+app_player.set_image_path('assets/images/sprites/doctor_128.png')
 
-# wave counter
-wave = 25
-viruses = []
-fired_vaccines = []
+# app variables
+app_wave = 25
+app_viruses = []
+app_fired_vaccines = []
 
+# randomize x starting position
 def random_x_start():
     result = random.randint(1, 12)
 
@@ -59,14 +60,15 @@ def random_x_start():
     elif result == 12:
         return 720
 
+# randomize y starting position
 def random_y_start():
-    if wave == 1:
+    if app_wave == 1:
         result = 1
-    elif wave > 1 and wave <= 4:
+    elif app_wave > 1 and app_wave <= 4:
         result = random.randint(1, 3)
-    elif wave > 4 and wave <= 10:
+    elif app_wave > 4 and app_wave <= 10:
         result = random.randint(1, 3)
-    elif wave > 10:
+    elif app_wave > 10:
         result = random.randint(1, 4)
 
     # result values
@@ -82,19 +84,20 @@ def random_y_start():
     elif result == 4:
         return -254
 
+# randomize sprite's speed
 def random_speed():
 
-    if wave <= 2:
+    if app_wave <= 2:
         return 0.5
 
-    if wave > 2 and wave <= 5:
+    if app_wave > 2 and app_wave <= 5:
         result = random.randint(1, 2)
         if result == 1:
             return 0.5
         else:
             return 1
 
-    if wave > 5 and wave <= 10:
+    if app_wave > 5 and app_wave <= 10:
         result = random.randint(1, 3)
         if result == 1:
             return 1
@@ -103,7 +106,7 @@ def random_speed():
         else:
             return 2
 
-    if wave > 10:
+    if app_wave > 10:
         result = random.randint(1, 5)
         if result == 1:
             return 0.5
@@ -116,6 +119,7 @@ def random_speed():
         elif result == 5:
             return 2.5
 
+# create viruses for the waves
 def create_viruses(waves):
     viruses_created = []
     while waves >= 1:
@@ -125,7 +129,7 @@ def create_viruses(waves):
         virus.set_speed(random_speed())
         virus.set_image_path('assets/images/sprites/virus_64.png')
 
-        # check of any duplicates, change sprite imaged to virus mutated
+        # check for any duplicates, change sprite imaged to virus mutated
         for i in range(len(viruses_created)):
             if (virus.get_x() == viruses_created[i].get_x() and
                 virus.get_y() == viruses_created[i].get_y()):
@@ -144,15 +148,21 @@ def create_viruses(waves):
                         'assets/images/sprites/mers_64.png')
                     viruses_created[i].set_image_path('assets/images/sprites/mers_64.png')
 
-                virus.set_speed(1)
-                viruses_created[i].set_speed(1)
+                # 
+                randomize_speed = random.randint(1,2)
+                if randomize_speed == 1:
+                    virus.set_speed(1)
+                    viruses_created[i].set_speed(1)
+                elif randomize_speed == 2:
+                    virus.set_speed(2)
+                    viruses_created[i].set_speed(2)
 
         viruses_created.append(virus)
         waves -= 1
 
     return viruses_created
 
-
+# check if vaccine hits a virus
 def is_collision(enemy_x, enemy_y, bullet_x, bullet_y):
     distance = math.sqrt(math.pow(enemy_x-bullet_x, 2) + math.pow(enemy_y-bullet_y, 2))
     if distance < 64:
@@ -162,6 +172,7 @@ def is_collision(enemy_x, enemy_y, bullet_x, bullet_y):
     else:
         return False
 
+# create vaccines that are fired
 def create_fired_vaccines(x, y):
         vaccine = Sprite(py, Screen.object)
         vaccine.set_x(x)
@@ -174,10 +185,11 @@ def create_fired_vaccines(x, y):
 
         return vaccine
 
-def set_menu_header(ammo_value, virus_killed, wave):
+# menu header for the game window
+def set_menu_header(ammo_value, virus_killed, app_wave):
     # add
     font = py.font.Font('freesansbold.ttf', 16)
-    wave_text = font.render('Wave ' + str(wave),
+    wave_text = font.render('Wave ' + str(app_wave),
         True, (0, 255, 0))
     Screen.object.blit(wave_text, (380, 5))
 
@@ -189,7 +201,7 @@ def set_menu_header(ammo_value, virus_killed, wave):
     ammo_image.draw()
 
     # ammo value    
-    ammo_text = font.render('(FIRED) x ' + str(ammo_value),
+    ammo_text = font.render('(Fired) x ' + str(ammo_value),
         True, (0, 255, 0))
     Screen.object.blit(ammo_text, (25, 5))
 
@@ -201,7 +213,7 @@ def set_menu_header(ammo_value, virus_killed, wave):
     virus_image.draw()
 
     # virus killed
-    virus_text = font.render('(KILLED) x ' + str(virus_killed),
+    virus_text = font.render('(Killed) x ' + str(virus_killed),
         True, (0, 255, 0))
     Screen.object.blit(virus_text, (25, 30))
 
@@ -221,9 +233,29 @@ def show_wave_page_screen():
     mixer.music.play() # -1, makes it infinite loop
 
     wave_page_flag = True
-    font = py.font.Font('freesansbold.ttf', 32)
-    wave_text = font.render('Wave ' + str(wave), True, (255, 0, 0))
+    font_1 = py.font.Font('freesansbold.ttf', 32)
+    wave_text = font_1.render('Wave ' + str(app_wave), True, (255, 0, 0))
     Screen.object.blit(wave_text, (350, 250))
+
+    
+    font_2 = py.font.Font('freesansbold.ttf', 16)
+
+    instruction_1_text = font_2.render('[SPACEBAR] - fire', True, (255, 0, 0))
+    Screen.object.blit(instruction_1_text, (325, 330))
+
+    instruction_2_text = font_2.render('[ARROW LEFT] - move left',
+        True, (255, 0, 0))
+    Screen.object.blit(instruction_2_text, (325, 350))
+
+    instruction_3_text = font_2.render('[ARROW RIGHT] - move right',
+        True, (255, 0, 0))
+    Screen.object.blit(instruction_3_text, (325, 370))
+  
+    instruction_4_text = font_2.render(
+        'Kill all SARS-COVID-2 viruses !!!',
+        True, (255, 0, 0))
+    Screen.object.blit(instruction_4_text, (325, 400))
+    
 
     # updates the screen on every iteration of the game loop
     py.display.update()
@@ -239,7 +271,7 @@ def show_wave_page_screen():
             if event.type == py.KEYDOWN:
                 wave_page_flag = False
 
-# game loop
+# main game loop
 def game_loop():
 
     # background sound
@@ -252,18 +284,18 @@ def game_loop():
 
     game_loop_flag = True
     player_x_change = 0
-    viruses = create_viruses(wave)
+    app_viruses = create_viruses(app_wave)
     score = 0
     fired = 0
     while game_loop_flag:
         # set screen background
-        main_screen.set_background_color((192, 192, 192))
-        main_screen.set_background_image(
+        app_main_screen.set_background_color((192, 192, 192))
+        app_main_screen.set_background_image(
             'assets/images/background/background_2.jpg',
             (0, 0))
 
         # set header
-        set_menu_header(fired, score, wave)
+        set_menu_header(fired, score, app_wave)
 
         # check events
         for event in py.event.get():
@@ -279,31 +311,31 @@ def game_loop():
                 if event.key == py.K_SPACE:
                     py.key.set_repeat(0)
                     fired += 1
-                    fired_vaccines.append(create_fired_vaccines(
-                        player.get_x()+32, player.get_y()+64))
+                    app_fired_vaccines.append(create_fired_vaccines(
+                        app_player.get_x()+32, app_player.get_y()+64))
 
             if event.type == py.KEYUP:
                 if (event.key == py.K_LEFT or event.key == py.K_RIGHT):
                     player_x_change = 0
 
-        player.set_x(player.get_x() + player_x_change)
+        app_player.set_x(app_player.get_x() + player_x_change)
 
-        # check player left and right boundaries
+        # check app_player left and right boundaries
         # x: 800, sprite: 128x128
         # left boundary: 0
         # right boundary: 672 (800-128)
-        if player.get_x() <= -20:
-            player.set_x(-20)
-        elif player.get_x() >= 692:
-            player.set_x(692)
+        if app_player.get_x() <= -20:
+            app_player.set_x(-20)
+        elif app_player.get_x() >= 692:
+            app_player.set_x(692)
 
-        player.draw()
+        app_player.draw()
 
-        # viruses movement       
-        for i, virus in enumerate(viruses):
+        # app_viruses movement       
+        for i, virus in enumerate(app_viruses):
             ''' For Testing Purposes:
-            print('viruses[{}] y: {}'.format(i, virus.get_y()))
-            print('viruses[{}] is rendered:{}'.format(i,
+            print('app_viruses[{}] y: {}'.format(i, virus.get_y()))
+            print('app_viruses[{}] is rendered:{}'.format(i,
                 virus.get_rendered()))
             '''
 
@@ -314,14 +346,14 @@ def game_loop():
             # check if virus sprite is out of the screen 
             if virus.get_y() > 600:
                 virus.set_rendered(False)
-                viruses.pop(i) # remove list element
+                app_viruses.pop(i) # remove list element
 
         # fire vaccine movement
-        for i, fired_vaccine in enumerate(fired_vaccines):
+        for i, fired_vaccine in enumerate(app_fired_vaccines):
             ''' For Testing Purposes:
-            print('fired_vaccines[{}] y: {}'.format(i,
+            print('app_fired_vaccines[{}] y: {}'.format(i,
                 fired_vaccine.get_y()))
-            print('fired_vaccines[{}] is rendered:{}'.format(i,
+            print('app_fired_vaccines[{}] is rendered:{}'.format(i,
                 fired_vaccine.get_rendered()))
             '''
 
@@ -333,11 +365,11 @@ def game_loop():
             # check if fired vaccine sprite is out of the screen 
             if fired_vaccine.get_y() < -64:
                 fired_vaccine.set_rendered(False)
-                fired_vaccines.pop(i) # remove list element
+                app_fired_vaccines.pop(i) # remove list element
 
         # collision detection
-        for i, virus in enumerate(viruses):
-            for j, fired_vaccine in enumerate(fired_vaccines):
+        for i, virus in enumerate(app_viruses):
+            for j, fired_vaccine in enumerate(app_fired_vaccines):
                 collision = is_collision(virus.get_x(),
                                 virus.get_y(),
                                 fired_vaccine.get_x(),
@@ -345,10 +377,10 @@ def game_loop():
                 if collision:
                     virus.set_rendered(False)
                     virus.set_y(-64)
-                    viruses.pop(i) # remove virus list element
+                    app_viruses.pop(i) # remove virus list element
                     fired_vaccine.set_rendered(False)
                     fired_vaccine.set_y(-64)
-                    fired_vaccines.pop(j) # remove fired_vaccine list element
+                    app_fired_vaccines.pop(j) # remove fired_vaccine list element
                     score += 1
 
                     # for testing
@@ -365,6 +397,7 @@ def game_loop():
 # ------------------------
 # Program Execution Point
 # -------------------------
+
 # show wave text
 show_wave_page_screen()
 
