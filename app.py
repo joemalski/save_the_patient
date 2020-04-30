@@ -418,6 +418,9 @@ def game_loop(main_screen, player, wave):
 
         # check if game is over
         if len(viruses) == 0:
+            # delay 100ms for better effect
+            py.time.delay(100)
+
             # background sound
             mixer.music.stop() # stop previous music
             mixer.music.load('assets/sounds/background_1.wav')
