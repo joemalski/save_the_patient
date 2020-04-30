@@ -4,11 +4,11 @@
 
 class Screen:
 
-    # Screen Object, an object from pygame.display.set_mode()
+    # Screen Object, an object from py.display.set_mode()
     object = None
 
-    def __init__(self, pygame):
-        self.pygame = pygame
+    def __init__(self, py):
+        self.py = py
         self.size = None
         self.caption = None
         self.icon_path = None
@@ -30,7 +30,7 @@ class Screen:
     # sets screen size where "size" is a tuple
     def set_size(self, size):
         self.size = size
-        Screen.object = self.pygame.display.set_mode(self.size)
+        Screen.object = self.py.display.set_mode(self.size)
 
     def get_size(self):
         return self.size
@@ -38,7 +38,7 @@ class Screen:
     # sets screen caption where "caption" is a str
     def set_caption(self, caption):
         self.caption = caption
-        self.pygame.display.set_caption(self.caption)
+        self.py.display.set_caption(self.caption)
 
     def get_caption(self):
         return self.caption
@@ -46,8 +46,8 @@ class Screen:
     # sets screen icon, where "icon_path" is a str
     def set_icon_path(self, icon_path):
         self.icon_path = icon_path
-        icon = self.pygame.image.load(self.icon_path)
-        self.pygame.display.set_icon(icon)
+        icon = self.py.image.load(self.icon_path)
+        self.py.display.set_icon(icon)
 
     def get_icon_path(self):
         return self.icon_path
@@ -65,5 +65,5 @@ class Screen:
     def set_background_image(self, background_path, background_point):
         self.background_image_path = background_path
         self.background_point = background_point
-        background = self.pygame.image.load(self.background_image_path)
+        background = self.py.image.load(self.background_image_path)
         Screen.object.blit(background, self.background_point)

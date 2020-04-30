@@ -2,17 +2,18 @@
 # Description: main module for the game.
 # Date: April 23, 2020
 
-import pygame, sys, math, random
+import pygame as py
+import sys, math, random
 
 from pygame import mixer
 from core.screen import Screen
 from core.sprite import Sprite
 
 # pygame initialization
-pygame.init()
+py.init()
 
 # main screen initialization
-main_screen = Screen(pygame)
+main_screen = Screen(py)
 main_screen.set_size((800, 600))
 main_screen.set_icon_path('assets/images/sprites/coronavirus_32.png')
 main_screen.set_caption('Save the Patient! A Covid-19 Game...')
@@ -20,7 +21,7 @@ main_screen.set_caption('Save the Patient! A Covid-19 Game...')
 
 # player screen initialization
 # initial position of player, bottom center
-player = Sprite(pygame, Screen.object)
+player = Sprite(py, Screen.object)
 player.set_x(336)
 player.set_y(472)
 player.set_image_path('assets/images/sprites/doctor_128.png')
@@ -118,7 +119,7 @@ def random_speed():
 def create_viruses(waves):
     viruses_created = []
     while waves >= 1:
-        virus = Sprite(pygame, Screen.object)
+        virus = Sprite(py, Screen.object)
         virus.set_x(random_x_start())
         virus.set_y(random_y_start())
         virus.set_speed(random_speed())
@@ -162,7 +163,7 @@ def is_collision(enemy_x, enemy_y, bullet_x, bullet_y):
         return False
 
 def create_fired_vaccines(x, y):
-        vaccine = Sprite(pygame, Screen.object)
+        vaccine = Sprite(py, Screen.object)
         vaccine.set_x(x)
         vaccine.set_y(y)
         vaccine.set_speed(8)
@@ -175,13 +176,13 @@ def create_fired_vaccines(x, y):
 
 def set_menu_header(ammo_value, virus_killed, wave):
     # add
-    font = pygame.font.Font('freesansbold.ttf', 16)
+    font = py.font.Font('freesansbold.ttf', 16)
     wave_text = font.render('Wave ' + str(wave),
         True, (0, 255, 0))
     Screen.object.blit(wave_text, (380, 5))
 
     # ammo image
-    ammo_image = Sprite(pygame, Screen.object)
+    ammo_image = Sprite(py, Screen.object)
     ammo_image.set_x(5)
     ammo_image.set_y(5)
     ammo_image.set_image_path('assets/images/sprites/vaccine_16.png')
@@ -193,7 +194,7 @@ def set_menu_header(ammo_value, virus_killed, wave):
     Screen.object.blit(ammo_text, (25, 5))
 
     # virus image
-    virus_image = Sprite(pygame, Screen.object)
+    virus_image = Sprite(py, Screen.object)
     virus_image.set_x(5)
     virus_image.set_y(30)
     virus_image.set_image_path('assets/images/sprites/virus_16.png')
@@ -207,7 +208,7 @@ def set_menu_header(ammo_value, virus_killed, wave):
 # quit the game
 def game_quit():
     # quits pygame
-    pygame.quit()
+    py.quit()
     print('\nThanks for playing... Stay Home, Stay Safe!\n')
     sys.exit()
 
@@ -220,22 +221,22 @@ def show_wave_page_screen():
     mixer.music.play() # -1, makes it infinite loop
 
     wave_page_flag = True
-    font = pygame.font.Font('freesansbold.ttf', 32)
+    font = py.font.Font('freesansbold.ttf', 32)
     wave_text = font.render('Wave ' + str(wave), True, (255, 0, 0))
     Screen.object.blit(wave_text, (350, 250))
 
     # updates the screen on every iteration of the game loop
-    pygame.display.update()
+    py.display.update()
 
     while wave_page_flag:
         # check events
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+        for event in py.event.get():
+            if event.type == py.QUIT:
                 wave_page_flag = False
                 game_quit()
 
             # check keystrokes
-            if event.type == pygame.KEYDOWN:
+            if event.type == py.KEYDOWN:
                 wave_page_flag = False
 
 # game loop
@@ -247,7 +248,7 @@ def game_loop():
     mixer.music.play(-1) # -1, makes it infinite loop
 
     # set_repeat(), for smoother keypress responses
-    pygame.key.set_repeat(10,10)
+    py.key.set_repeat(10,10)
 
     game_loop_flag = True
     player_x_change = 0
@@ -265,24 +266,24 @@ def game_loop():
         set_menu_header(fired, score, wave)
 
         # check events
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+        for event in py.event.get():
+            if event.type == py.QUIT:
                 game_loop_flag = False  
 
             # check keystrokes
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_LEFT:
+            if event.type == py.KEYDOWN:
+                if event.key == py.K_LEFT:
                     player_x_change = -20
-                if event.key == pygame.K_RIGHT:
+                if event.key == py.K_RIGHT:
                     player_x_change = 20
-                if event.key == pygame.K_SPACE:
-                    pygame.key.set_repeat(0)
+                if event.key == py.K_SPACE:
+                    py.key.set_repeat(0)
                     fired += 1
                     fired_vaccines.append(create_fired_vaccines(
                         player.get_x()+32, player.get_y()+64))
 
-            if event.type == pygame.KEYUP:
-                if (event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT):
+            if event.type == py.KEYUP:
+                if (event.key == py.K_LEFT or event.key == py.K_RIGHT):
                     player_x_change = 0
 
         player.set_x(player.get_x() + player_x_change)
@@ -355,7 +356,7 @@ def game_loop():
 
 
         # updates the screen on every iteration of the game loop
-        pygame.display.update()
+        py.display.update()
 
     game_quit()
 

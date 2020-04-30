@@ -4,12 +4,12 @@
 
 class Sprite:
 
-    # Screen Object, an object from pygame.display.set_mode()
+    # Screen Object, an object from py.display.set_mode()
     object = None
 
-    def __init__(self, pygame, screen_object):
+    def __init__(self, py, screen_object):
         Sprite.object = screen_object
-        self.pygame = pygame
+        self.py = py
         self.x = None
         self.y = None
         self.image_path = None
@@ -67,5 +67,5 @@ class Sprite:
     # self.image, self.x and self.y should be set or initialized first
     # it automatically sets the "self.rendered" to true
     def draw(self):
-        image = self.pygame.image.load(self.image_path)
+        image = self.py.image.load(self.image_path)
         Sprite.object.blit(image, (self.x, self.y))
