@@ -27,7 +27,7 @@ app_player.set_y(472)
 app_player.set_image_path('assets/images/sprites/doctor_128.png')
 
 # app variables
-app_wave = 25
+app_wave = 1
 
 # randomize x starting position
 def random_x_start():
@@ -185,7 +185,6 @@ def create_fired_vaccines(x, y):
 
 # menu header for the game window
 def set_menu_header(ammo_value, virus_killed, wave):
-    # add
     font = py.font.Font('freesansbold.ttf', 16)
     wave_text = font.render('Wave ' + str(wave),
         True, (0, 255, 0))
@@ -218,41 +217,47 @@ def set_menu_header(ammo_value, virus_killed, wave):
 # quit the game
 def game_quit():
     # quits pygame
+    py.event.clear()
     py.quit()
     print('\nThanks for playing... Stay Home, Stay Safe!\n')
     sys.exit()
 
 # show's the wave page screen
-def show_wave_page_screen(wave):
+def show_wave_page_screen(wave, main_screen):
 
     # background sound
     mixer.music.stop() # stop previous music
     mixer.music.load('assets/sounds/background_1.wav')
     mixer.music.play() # -1, makes it infinite loop
 
+
+    main_screen.set_background_image(
+            'assets/images/background/background_black.jpg',
+            (0, 0))
+
     wave_page_flag = True
     font_1 = py.font.Font('freesansbold.ttf', 32)
     wave_text = font_1.render('Wave ' + str(wave), True, (255, 0, 0))
-    Screen.object.blit(wave_text, (350, 250))
+    Screen.object.blit(wave_text, (350, 220))
 
     
     font_2 = py.font.Font('freesansbold.ttf', 16)
 
     instruction_1_text = font_2.render('[SPACEBAR] - fire', True, (255, 0, 0))
-    Screen.object.blit(instruction_1_text, (325, 330))
+    Screen.object.blit(instruction_1_text, (325, 270))
 
     instruction_2_text = font_2.render('[ARROW LEFT] - move left',
         True, (255, 0, 0))
-    Screen.object.blit(instruction_2_text, (325, 350))
+    Screen.object.blit(instruction_2_text, (325, 290))
 
     instruction_3_text = font_2.render('[ARROW RIGHT] - move right',
         True, (255, 0, 0))
-    Screen.object.blit(instruction_3_text, (325, 370))
+    Screen.object.blit(instruction_3_text, (325, 310))
   
     instruction_4_text = font_2.render(
         'Press Enter to continue ...',
         True, (255, 0, 0))
-    Screen.object.blit(instruction_4_text, (325, 400))
+    Screen.object.blit(instruction_4_text, (325, 350))
     
 
     # updates the screen on every iteration of the game loop
@@ -269,6 +274,7 @@ def show_wave_page_screen(wave):
             if event.type == py.KEYDOWN:
                 if event.key == py.K_RETURN:
                     wave_page_flag = False
+                    py.event.clear()
 
 # main game loop
 def game_loop(main_screen, player, wave):
@@ -290,7 +296,6 @@ def game_loop(main_screen, player, wave):
 
     while game_loop_flag:
         # set screen background
-        main_screen.set_background_color((192, 192, 192))
         main_screen.set_background_image(
             'assets/images/background/background_2.jpg',
             (0, 0))
@@ -301,7 +306,8 @@ def game_loop(main_screen, player, wave):
         # check events
         for event in py.event.get():
             if event.type == py.QUIT:
-                game_loop_flag = False  
+                game_loop_flag = False
+                py.event.clear()
 
             # check keystrokes
             if event.type == py.KEYDOWN:
@@ -392,19 +398,80 @@ def game_loop(main_screen, player, wave):
         # updates the screen on every iteration of the game loop
         py.display.update()
 
-    game_quit()
+        # check if game is over
+        if len(viruses) == 0:
+            # background sound
+            mixer.music.stop() # stop previous music
+            mixer.music.load('assets/sounds/background_1.wav')
+            mixer.music.play() # -1, makes it infinite loop
 
+
+            # change background
+            main_screen.set_background_image(
+                'assets/images/background/background_1.jpg',
+                (0, 0))
+
+            result = None
+            font_1 = py.font.Font('freesansbold.ttf', 32)
+            if score < wave:
+                game_over_text = font_1.render(
+                'Game Over', True, (255, 0, 0))
+                Screen.object.blit(game_over_text, (320, 250))
+
+                score_text = font_1.render(
+                'Virus Killed: ' + str(score), True, (255, 0, 0))
+                Screen.object.blit(score_text, (320, 290))
+                result = False
+            else:
+                next_wave_text = font_1.render(
+                'Next Wave: ' + str(wave + 1), True, (255, 0, 0))
+                Screen.object.blit(next_wave_text, (320, 250))
+
+                score_text = font_1.render(
+                'Virus Killed: ' + str(score), True, (255, 0, 0))
+                Screen.object.blit(score_text, (320, 290))
+                result = True
+
+            font_2 = py.font.Font('freesansbold.ttf', 16)
+            press_enter_text = font_2.render(
+            'Press enter to continue...', True, (255, 0, 0))
+            Screen.object.blit(press_enter_text, (320, 340))
+
+            py.display.update()
+
+            while True:
+                # check events
+                for event in py.event.get():
+                    if event.type == py.QUIT:
+                        game_loop_flag = False
+                        game_quit()
+
+                    # check keystrokes
+                    if event.type == py.KEYDOWN:
+                        if event.key == py.K_RETURN:
+                            game_loop_flag = False
+                            py.event.clear()
+                            return result
+          
 
 
 # ------------------------
 # Program Execution Point
 # -------------------------
 
-# show wave text
-show_wave_page_screen(app_wave)
+while True:
 
-# run game loop
-game_loop(app_main_screen, app_player, app_wave)
+    # show wave text
+    if app_wave == 1:
+        show_wave_page_screen(app_wave, app_main_screen)
 
+    # run game loop
+    result = game_loop(app_main_screen, app_player, app_wave)
+    print('result:', result)
+
+    if result:
+        app_wave += 1
+    else:
+        app_wave = 1
 
 
