@@ -16,7 +16,7 @@ py.init()
 app_main_screen = Screen(py)
 app_main_screen.set_size((800, 600))
 app_main_screen.set_icon_path('assets/images/sprites/coronavirus_32.png')
-app_main_screen.set_caption('Save the Patient! A Covid-19 Game...')
+app_main_screen.set_caption('Save the Patient! A COVID-19 Game...')
 
 
 # app_player screen initialization
