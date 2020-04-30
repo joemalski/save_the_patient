@@ -105,18 +105,35 @@ def random_speed(wave):
         else:
             return 2
 
-    if wave > 10:
+    if wave > 10 and wave <= 20:
         result = random.randint(1, 5)
         if result == 1:
-            return 0.5
-        elif result == 2:
             return 1
-        elif result == 3:
+        elif result == 2:
             return 1.5
-        elif result == 4:
+        elif result == 3:
             return 2
-        elif result == 5:
+        elif result == 4:
             return 2.5
+        else:
+            return 3
+
+    if wave > 20:
+        result = random.randint(1, 7)
+        if result == 1:
+            return 1.5
+        elif result == 2:
+            return 2
+        elif result == 3:
+            return 2.5
+        elif result == 4:
+            return 3
+        elif result == 5:
+            return 3.5
+        elif result == 6:
+            return 4
+        else:
+            return 4.5
 
 # create viruses for the waves
 def create_viruses(waves):
@@ -215,8 +232,8 @@ def set_menu_header(ammo_value, virus_killed, wave):
         True, (0, 255, 0))
     Screen.object.blit(virus_text, (25, 30))
 
-# show's the wave page screen
-def show_wave_page_screen(wave, main_screen):
+# show's the first page screen
+def show_first_page_screen(main_screen):
 
     # background sound
     mixer.music.stop() # stop previous music
@@ -225,32 +242,33 @@ def show_wave_page_screen(wave, main_screen):
 
 
     main_screen.set_background_image(
-            'assets/images/background/background_black.jpg',
+            'assets/images/background/background_1.jpg',
             (0, 0))
 
     wave_page_flag = True
-    font_1 = py.font.Font('freesansbold.ttf', 32)
-    wave_text = font_1.render('Wave ' + str(wave), True, (255, 0, 0))
-    Screen.object.blit(wave_text, (350, 220))
+    font_1 = py.font.Font('freesansbold.ttf', 18)
+    title_text = font_1.render('Save the Patient! A COVID-19 Game...', 
+        True, (255, 0, 0))
+    Screen.object.blit(title_text, (250, 220))
 
     
     font_2 = py.font.Font('freesansbold.ttf', 16)
 
     instruction_1_text = font_2.render('[SPACEBAR] - fire', True, (255, 0, 0))
-    Screen.object.blit(instruction_1_text, (325, 270))
+    Screen.object.blit(instruction_1_text, (300, 270))
 
     instruction_2_text = font_2.render('[ARROW LEFT] - move left',
         True, (255, 0, 0))
-    Screen.object.blit(instruction_2_text, (325, 290))
+    Screen.object.blit(instruction_2_text, (300, 290))
 
     instruction_3_text = font_2.render('[ARROW RIGHT] - move right',
         True, (255, 0, 0))
-    Screen.object.blit(instruction_3_text, (325, 310))
+    Screen.object.blit(instruction_3_text, (300, 310))
   
     instruction_4_text = font_2.render(
-        'Press Enter to continue ...',
+        'Press Enter to continue',
         True, (255, 0, 0))
-    Screen.object.blit(instruction_4_text, (325, 350))
+    Screen.object.blit(instruction_4_text, (300, 350))
     
 
     # updates the screen on every iteration of the game loop
@@ -428,7 +446,7 @@ def game_loop(main_screen, player, wave):
 
             font_2 = py.font.Font('freesansbold.ttf', 16)
             press_enter_text = font_2.render(
-            'Press enter to continue...', True, (255, 0, 0))
+            'Press Enter to continue', True, (255, 0, 0))
             Screen.object.blit(press_enter_text, (320, 340))
 
             py.display.update()
@@ -467,11 +485,11 @@ while app_main_loop_flag:
 
     # show wave text
     if app_wave == 1:
-        show_wave_page_screen(app_wave, app_main_screen)
+        show_first_page_screen(app_main_screen)
 
     # run game loop
     result = game_loop(app_main_screen, app_player, app_wave)
-    
+
     if result:
         app_wave += 1
     else:
