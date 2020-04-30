@@ -27,7 +27,7 @@ app_player.set_y(472)
 app_player.set_image_path('assets/images/sprites/doctor_128.png')
 
 # app variables
-app_wave = 1
+app_wave = 31
 app_main_loop_flag = True # This is global !
 
 # randomize x starting position
@@ -164,14 +164,32 @@ def create_viruses(waves):
                         'assets/images/sprites/mers_64.png')
                     viruses_created[i].set_image_path('assets/images/sprites/mers_64.png')
 
-                # 
+                # randomize speed                
                 randomize_speed = random.randint(1,2)
-                if randomize_speed == 1:
-                    virus.set_speed(1)
-                    viruses_created[i].set_speed(1)
-                elif randomize_speed == 2:
-                    virus.set_speed(2)
-                    viruses_created[i].set_speed(2)
+                if waves < 20:
+                    if randomize_speed == 1:
+                        virus.set_speed(1)
+                        viruses_created[i].set_speed(1)
+                    elif randomize_speed == 2:
+                        virus.set_speed(2)
+                        viruses_created[i].set_speed(2)
+                elif waves > 20 and waves <= 30:
+                    if randomize_speed == 1:
+                        virus.set_speed(2)
+                        viruses_created[i].set_speed(2)
+                    elif randomize_speed == 2:
+                        virus.set_speed(3)
+                        viruses_created[i].set_speed(3)
+                elif waves > 30:
+                    if randomize_speed == 1:
+                        virus.set_speed(2)
+                        viruses_created[i].set_speed(2)
+                    elif randomize_speed == 2:
+                        virus.set_speed(3)
+                        viruses_created[i].set_speed(3)
+                    else:
+                        virus.set_speed(4)
+                        viruses_created[i].set_speed(4)
 
         viruses_created.append(virus)
         waves -= 1
