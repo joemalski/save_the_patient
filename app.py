@@ -252,7 +252,7 @@ def show_wave_page_screen():
     Screen.object.blit(instruction_3_text, (325, 370))
   
     instruction_4_text = font_2.render(
-        'Kill all SARS-COVID-2 viruses !!!',
+        'Press Enter to continue ...',
         True, (255, 0, 0))
     Screen.object.blit(instruction_4_text, (325, 400))
     
@@ -269,7 +269,8 @@ def show_wave_page_screen():
 
             # check keystrokes
             if event.type == py.KEYDOWN:
-                wave_page_flag = False
+                if event.key == py.K_RETURN:
+                    wave_page_flag = False
 
 # main game loop
 def game_loop():
@@ -385,7 +386,6 @@ def game_loop():
 
                     # for testing
                     #print('SARS-COVID-2 Virus has been hit !!!')
-
 
         # updates the screen on every iteration of the game loop
         py.display.update()
