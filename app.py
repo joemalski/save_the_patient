@@ -27,7 +27,7 @@ app_player.set_y(472)
 app_player.set_image_path('assets/images/sprites/doctor_128.png')
 
 # app variables
-app_wave = 31
+app_wave = 1
 app_main_loop_flag = True # This is global !
 
 # randomize x starting position
