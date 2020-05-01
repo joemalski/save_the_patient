@@ -529,6 +529,9 @@ def game_quit():
     app_main_loop_flag = False
     py.quit()
     print('\nThanks for playing... Stay Home, Stay Safe!\n')
+    print('Game Version: 0.1')
+    print('Developed by: Joel F. Malinao')
+    print('https://github.com/joemalski/save_the_patient\n')
     sys.exit()
 
 
