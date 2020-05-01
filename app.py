@@ -314,6 +314,10 @@ def show_first_page_screen(main_screen):
                     wave_page_flag = False
                     py.event.clear()
 
+                if event.key == py.K_ESCAPE:
+                    wave_page_flag = False
+                    game_quit()
+
 # main game loop
 def game_loop(main_screen, player, wave):
 
@@ -363,6 +367,10 @@ def game_loop(main_screen, player, wave):
                         fired += 1
                         fired_vaccines.append(create_fired_vaccines(
                             player.get_x()+32, player.get_y()+64))
+                if event.key == py.K_ESCAPE:
+                    game_loop_flag = False
+                    py.event.clear()
+                    result = False
 
             if event.type == py.KEYUP:
                 if (event.key == py.K_LEFT or event.key == py.K_RIGHT):
@@ -501,6 +509,7 @@ def game_loop(main_screen, player, wave):
                 # check events
                 for event in py.event.get():
                     if event.type == py.QUIT:
+                        break
                         game_loop_flag = False
                         game_quit()
 
@@ -509,6 +518,10 @@ def game_loop(main_screen, player, wave):
                         if event.key == py.K_RETURN:
                             game_loop_flag = False
                             return result
+                        if event.key == py.K_ESCAPE:
+                            py.event.clear()
+                            game_loop_flag = False
+                            return False
           
 # quit the game
 def game_quit():
