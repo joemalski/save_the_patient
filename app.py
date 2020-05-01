@@ -315,7 +315,7 @@ def game_loop(main_screen, player, wave):
 
     # background sound
     mixer.music.stop() # stop previous music
-    mixer.music.load('assets/sounds/background_2.wav')
+    mixer.music.load('assets/sounds/break_in.wav')
     mixer.music.play(-1) # -1, makes it infinite loop
 
     # set_repeat(), for smoother keypress responses
