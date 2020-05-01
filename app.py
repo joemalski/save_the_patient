@@ -328,7 +328,6 @@ def game_loop(main_screen, player, wave):
 
     # set_repeat(), for smoother keypress responses
     py.key.set_repeat(10,10)
-    py.event.clear()
 
     game_loop_flag = True
     player_x_change = 0
