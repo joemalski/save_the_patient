@@ -256,7 +256,6 @@ def show_first_page_screen(main_screen):
     py.key.set_repeat()
     py.event.clear()
 
-
     # background sound
     mixer.music.stop() # stop previous music
     mixer.music.load('assets/sounds/background_1.wav')
@@ -291,7 +290,12 @@ def show_first_page_screen(main_screen):
         'Press Enter to continue',
         True, (0, 255, 0))
     Screen.object.blit(instruction_4_text, (300, 350))
-    
+
+    pygame_logo = py.image.load('assets/images/sprites/pygame_logo.png')
+    Sprite.object.blit(pygame_logo, (280, 100))
+
+    python_logo = py.image.load('assets/images/sprites/python.png')
+    Sprite.object.blit(python_logo, (280, 420))    
 
     # updates the screen on every iteration of the game loop
     py.display.update()
