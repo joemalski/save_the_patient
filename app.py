@@ -466,8 +466,8 @@ def game_loop(main_screen, player, wave):
                 mixer.music.play(-1) # -1, makes it infinite loop
 
                 game_over_text = font_1.render(
-                'Game Over', True, (255, 0, 0))
-                Screen.object.blit(game_over_text, (325, 220))
+                'Game Over (Wave '+str(wave)+')', True, (255, 0, 0))
+                Screen.object.blit(game_over_text, (260, 220))
 
                 message_text = font_2.render(
                 'SARS-COVID-2 entered patient !', True, (255, 0, 0))
@@ -508,7 +508,6 @@ def game_loop(main_screen, player, wave):
                 # check events
                 for event in py.event.get():
                     if event.type == py.QUIT:
-                        break
                         game_loop_flag = False
                         game_quit()
 
