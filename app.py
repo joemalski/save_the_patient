@@ -392,10 +392,10 @@ def game_loop(main_screen, player, wave):
             if virus.get_rendered() == True:
                 virus.set_y(virus.get_y() + virus.get_speed())
 
-            # check if virus sprite is out of the screen 
+            # check if virus entered the patient !!!
             if virus.get_y() > 600:
-                virus.set_rendered(False)
-                viruses.pop(i) # remove list element
+                virus.set_rendered(False)                
+                viruses.clear()
 
         # fire vaccine movement
         for i, fired_vaccine in enumerate(fired_vaccines):
@@ -443,12 +443,6 @@ def game_loop(main_screen, player, wave):
             # delay 100ms for better effect
             py.time.delay(100)
 
-            # background sound
-            mixer.music.stop() # stop previous music
-            mixer.music.load('assets/sounds/background_1.wav')
-            mixer.music.play() # -1, makes it infinite loop
-
-
             # change background
             main_screen.set_background_image(
                 'assets/images/background/background_1.jpg',
@@ -458,13 +452,23 @@ def game_loop(main_screen, player, wave):
             font_1 = py.font.Font('freesansbold.ttf', 32)
             font_2 = py.font.Font('freesansbold.ttf', 16)
             if score < wave:
+
+                # background sound
+                mixer.music.stop() # stop previous music
+                mixer.music.load('assets/sounds/astronomia.wav')
+                mixer.music.play(-1) # -1, makes it infinite loop
+
                 game_over_text = font_1.render(
                 'Game Over', True, (255, 0, 0))
-                Screen.object.blit(game_over_text, (325, 250))
+                Screen.object.blit(game_over_text, (325, 220))
+
+                message_text = font_2.render(
+                'SARS-COVID-2 entered patient !', True, (255, 0, 0))
+                Screen.object.blit(message_text, (285, 270))
 
                 score_text = font_1.render(
                 'Virus Killed: ' + str(score), True, (255, 0, 0))
-                Screen.object.blit(score_text, (300, 290))
+                Screen.object.blit(score_text, (300, 300))
                 result = False
 
                 press_enter_text = font_2.render(
@@ -472,6 +476,12 @@ def game_loop(main_screen, player, wave):
                 Screen.object.blit(press_enter_text, (325, 340))
 
             else:
+
+                # background sound
+                mixer.music.stop() # stop previous music
+                mixer.music.load('assets/sounds/background_1.wav')
+                mixer.music.play(-1) # -1, makes it infinite loop
+
                 next_wave_text = font_1.render(
                 'Next Virus Wave: ' + str(wave + 1), True, (0, 255, 0))
                 Screen.object.blit(next_wave_text, (270, 250))
