@@ -11,10 +11,10 @@ $ python3 app.py
 Keyboard Controls:<br />
 <br />
 \[SPACEBAR\] - Fire vaccines to destroy the viruses.<br />
-ARROW LEFT - Move the doctor to the left.<br />
-ARROW RIGHT - Move the doctor to the right.<br />
-ENTER - Selection<br />
-ESC - Exit<br />
+\[ARROW LEFT\] - Move the doctor to the left.<br />
+\[ARROW RIGHT\] - Move the doctor to the right.<br />
+\[ENTER\] - Selection<br />
+\[ESC\] - Exit<br />
 <br />
 
 Screenshots:
