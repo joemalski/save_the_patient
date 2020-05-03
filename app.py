@@ -466,6 +466,11 @@ def game_loop(main_screen, player, wave):
                 mixer.music.load('assets/sounds/astronomia.wav')
                 mixer.music.play(-1) # -1, makes it infinite loop
 
+                # coffin meme starz! super!
+                coffin_meme_starz = py.image.load(
+                    'assets/images/sprites/coffin_meme.png')
+                Sprite.object.blit(coffin_meme_starz, (200, 95))    
+
                 game_over_text = font_1.render(
                 'Game Over (Wave '+str(wave)+')', True, (255, 0, 0))
                 Screen.object.blit(game_over_text, (260, 220))
