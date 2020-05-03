@@ -9,7 +9,8 @@ $ python3 app.py
 <br />
 <br />
 Keyboard Controls:<br />
-SPACEBAR - Fire vaccines to destroy the viruses.<br />
+<br />
+\[SPACEBAR\] - Fire vaccines to destroy the viruses.<br />
 ARROW LEFT - Move the doctor to the left.<br />
 ARROW RIGHT - Move the doctor to the right.<br />
 ENTER - Selection<br />
