@@ -327,7 +327,7 @@ def game_loop(main_screen, player, wave):
     mixer.music.play(-1) # -1, makes it infinite loop
 
     # set_repeat(), for smoother keypress responses
-    py.key.set_repeat(10,10)
+    py.key.set_repeat(10, 10)
 
     game_loop_flag = True
     player_x_change = 0
@@ -362,10 +362,11 @@ def game_loop(main_screen, player, wave):
                     # check if there is still a virus
                     # then allow to fire
                     if len(viruses) > 0:
-                        py.key.set_repeat(0)
+                        py.key.set_repeat(0)                    
                         fired += 1
                         fired_vaccines.append(create_fired_vaccines(
                             player.get_x()+32, player.get_y()+64))
+                        py.key.set_repeat(10,10)
                 if event.key == py.K_ESCAPE:
                     game_loop_flag = False
                     py.event.clear()
