@@ -4,14 +4,19 @@ A simple "space invader" like game built with pygame. Save the patient from the 
 Note that the game was design in Python 3.  Run the game using Python 3. Enjoy Folks !!!
 
 To run the program:
+
 $ python3 app.py
 
 Keyboard Controls:
 
 SPACEBAR - Fire vaccines to destroy the viruses.
+
 ARROW LEFT - Move the doctor to the left.
+
 ARROW RIGHT - Move the doctor to the right.
+
 ENTER - Selection
+
 ESC - Exit
 
 Screenshots:
