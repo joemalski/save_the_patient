@@ -2,7 +2,7 @@
 
 A simple "space invader" like game built with pygame. Save the patient from the COVID-19 disease!<br />
 Note that the game was design in Python 3.  Run the game using Python 3.<br /><br />
-The game was made because I have nothing to do during lockdown...
+The game was made because I have nothing to do during lockdown (no freedom, so boring)...
 <br />
 <br />
 To run the program:<br />
