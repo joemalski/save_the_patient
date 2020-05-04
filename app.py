@@ -221,7 +221,7 @@ def create_fired_vaccines(x, y):
 
 # menu header for the game window
 def set_menu_header(ammo_value, virus_killed, wave):
-    font = py.font.Font('freesansbold.ttf', 16)
+    font = py.font.Font('assets/fonts/verdana.ttf', 16)
     wave_text = font.render('COVID-19 Wave ' + str(wave),
         True, (0, 255, 0))
     Screen.object.blit(wave_text, (340, 5))
@@ -267,13 +267,13 @@ def show_first_page_screen(main_screen):
             (0, 0))
 
     wave_page_flag = True
-    font_1 = py.font.Font('freesansbold.ttf', 18)
+    font_1 = py.font.Font('assets/fonts/verdana.ttf', 18)
     title_text = font_1.render('Save the Patient! A COVID-19 Game...', 
         True, (0, 255, 0))
     Screen.object.blit(title_text, (250, 220))
 
     
-    font_2 = py.font.Font('freesansbold.ttf', 16)
+    font_2 = py.font.Font('assets/fonts/verdana.ttf', 16)
 
     instruction_1_text = font_2.render('[SPACEBAR] - fire', True, (0, 255, 0))
     Screen.object.blit(instruction_1_text, (300, 270))
@@ -457,8 +457,8 @@ def game_loop(main_screen, player, wave):
                 (0, 0))
 
             result = None
-            font_1 = py.font.Font('freesansbold.ttf', 32)
-            font_2 = py.font.Font('freesansbold.ttf', 16)
+            font_1 = py.font.Font('assets/fonts/verdana.ttf', 32)
+            font_2 = py.font.Font('assets/fonts/verdana.ttf', 16)
             if score < wave:
 
                 # background sound
