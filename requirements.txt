@@ -1,2 +1,2 @@
 # Requirements for "Save-the-Patient"
-pygame==1.9.6
+pygame==2.0.1
