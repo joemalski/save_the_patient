@@ -11,6 +11,10 @@ Currently tested with MacOS Big Sur Version 11.5.2.
 The game was made because I have nothing to do during lockdown (no freedom, so boring)...
 <br />
 <br />
+To install pygame library:<br />
+$ pip install pygame
+<br />
+<br />
 To run the program:<br />
 $ python3 app.py
 <br />
